@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NamesToggle : MonoBehaviour {
     
-    GameObject nameList;
+    public GameObject nameList;
 
     public void ToggleNames() {
         if (nameList.active == true) {

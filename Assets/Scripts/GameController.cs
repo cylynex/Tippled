@@ -84,6 +84,7 @@ public class GameController : MonoBehaviour {
     public static int specialNumber = 0;
     public static int headtoheadNumber = 0;
     public static int triviaNumber = 0;
+    public static int convenienceNumber = 0;
 
 
     void Start() {
@@ -251,6 +252,7 @@ public class GameController : MonoBehaviour {
             case "Special": specialNumber++; break;
             case "Head to Head": headtoheadNumber++; break;
             case "Trivia": triviaNumber++; break;
+            case "Convenience": inconvenienceNumber++; break;
         }
     }
 
