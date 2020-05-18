@@ -20,7 +20,6 @@ public class GameController : MonoBehaviour {
     public GameObject clickToContinue;
     public Image cardBackground;
     string cardAnswerText;
-    [SerializeField] Text turnDisplay;
     [SerializeField] GameObject answerPanel;
     [SerializeField] Text answerPanelTextField;
     bool answerPanelActive = false;
@@ -116,8 +115,7 @@ public class GameController : MonoBehaviour {
 
         // Set turn to 1
         currentTurn = 0;
-        turnDisplay.text = currentTurn.ToString();
-
+        
         // Setup Audio
         audioSource = GetComponent<AudioSource>();
 

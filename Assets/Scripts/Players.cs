@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Players : MonoBehaviour {
     
-    [SerializeField] Text playerCounterText;
     [SerializeField] Text errorText;
 
     [SerializeField] InputField newPlayerName;
