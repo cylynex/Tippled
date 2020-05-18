@@ -1329,7 +1329,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: category
+  m_Text: Category
 --- !u!222 &833982951
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1698,7 +1698,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 5.47, y: 100.2}
-  m_SizeDelta: {x: 546.2, y: 211.40248}
+  m_SizeDelta: {x: 546.2, y: 181.40834}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1262257683
 MonoBehaviour:
@@ -2625,7 +2625,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 5.47, y: -51.17505}
-  m_SizeDelta: {x: 669.76, y: 87.225}
+  m_SizeDelta: {x: 669.76, y: 112.22007}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1765582705
 MonoBehaviour:
@@ -2713,7 +2713,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Title
+  m_Text: Wardrobe malfunction my ass
 --- !u!222 &1765582707
 CanvasRenderer:
   m_ObjectHideFlags: 0

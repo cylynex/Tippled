@@ -1158,8 +1158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5edee42c5d54dde4e85a549458510707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCounterText: {fileID: 0}
-  errorText: {fileID: 0}
+  errorText: {fileID: 1774988583}
   newPlayerName: {fileID: 1206759884}
   playerNamePrefab: {fileID: 1675027765779350820, guid: 053b98899b740b24a9e55f6dbae8dc46,
     type: 3}
