@@ -8,7 +8,7 @@ public class InputFieldController : MonoBehaviour {
     [SerializeField] InputField inputField;
 
     private void Start() {
-        inputField.characterLimit = 16;
+        inputField.characterLimit = 12;
     }
 
 }
