@@ -234,9 +234,27 @@ public class GameController : MonoBehaviour {
         if (dealCard.cardCategory == "Inconvenience") {
             int cancelAfter = Random.Range(minTurnsForInconvenience, maxTurnsForInconvenience);
             int cancelHere = currentTurn + cancelAfter;
-            cancelInconvenienceTurnSlot.Add(cancelHere);
-            cancelInconvenienceString.Add(currentPlayer);
 
+            // Check for existing inconvenience for this player.  If there is one, just replace the turn slot instead of adding a new one.
+            int incCounter = 0;
+            for (int x = 0; x < cancelInconvenienceString.Count; x++) {
+                if (cancelInconvenienceString[x] == currentPlayer) {
+                    print("found an existing IC with their name, updating counter.");
+                    incCounter++;
+                    print("Prior Release: " + cancelInconvenienceTurnSlot[x]);
+                    cancelInconvenienceTurnSlot[x] = cancelHere;
+                    print("New Release: " + cancelInconvenienceTurnSlot[x]);
+                } 
+            }
+
+            if (incCounter == 0) {
+                print("No IC present, just add from scratch.");
+                cancelInconvenienceTurnSlot.Add(cancelHere);
+                cancelInconvenienceString.Add(currentPlayer);
+            } else {
+                print("They already have an existing IC, just update.");
+            }
+            
             // If this is the first one, or there are no others in the queue, make this one the first.
             if (nextInconvenienceFreedom == 0) {
                 nextInconvenienceFreedom = cancelHere;
@@ -280,9 +298,7 @@ public class GameController : MonoBehaviour {
 
 
             foreach(Transform child in nameListHolder) {
-                print(child.gameObject.name);
                 if (child.gameObject.name == playerName.text) {
-                    print("ITS THIS GUYS TURN: " + playerName.text);
                     child.gameObject.GetComponent<Text>().color = Color.white;
                 } else {
                     child.gameObject.GetComponent<Text>().color = Color.black;
