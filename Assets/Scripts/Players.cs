@@ -40,7 +40,6 @@ public class Players : MonoBehaviour {
             newPlayerName.text = "";
 
             // Add to the lower UI section
-            // TODO add icon for remove player (and method)
             GameObject newestPlayer = Instantiate(playerNamePrefab, playerNameHolder.position, Quaternion.identity);
             newestPlayer.transform.SetParent(playerNameHolder);
             newestPlayer.GetComponent<Text>().text = newPlayer;
