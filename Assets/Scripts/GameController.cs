@@ -8,8 +8,9 @@ public class GameController : MonoBehaviour {
 
     // The list of Cards
     [Header("Cards")]
-    public List<Card> categoryDeck = new List<Card>(); // Categories Cards
-    public List<Card> dateDeck = new List<Card>(); // Date Cards
+    [SerializeField] public List<Card> categoryDeck = new List<Card>(); // Categories Cards
+    [SerializeField] public List<Card> dateDeck = new List<Card>(); // Date Cards
+    [SerializeField] public List<Card> specialDeck = new List<Card>(); // Special Cards
     Card dealCard;
 
     [Header("UI Stuff")]
@@ -31,15 +32,15 @@ public class GameController : MonoBehaviour {
     [SerializeField] GameObject nameListEntry;
     
     bool hasHiddenText = false;
-
-    [Header("Informational Game Stuff")]
-    [SerializeField] int currentTurn;
-    [SerializeField] int inconvenienceCounter = 0;
-    [SerializeField] int categoryCounter = 0;
-    [SerializeField] int dateCardTurn = 0;
-    [SerializeField] string currentPlayer;
-    [SerializeField] int cardsInDeck = 0;
-    [SerializeField] int cardsInUsedDeck = 0;
+    
+    [Header("Special Decks")]
+    [SerializeField] List<int> specialCardUsedSlots = new List<int>();
+    [SerializeField] List<int> dateCardTurn = new List<int>();
+    [SerializeField] List<int> categoryCardTurn = new List<int>();
+    [SerializeField] List<int> specialCardTurn = new List<int>();
+    [SerializeField] int dateCardsPerGame = 2;
+    [SerializeField] int categoryCardsPerGame = 3;
+    [SerializeField] int specialCardsPerGame = 3;
 
     [Header("Inconvenience Tracking")]
     List<int> cancelInconvenienceTurnSlot = new List<int>();
@@ -47,16 +48,12 @@ public class GameController : MonoBehaviour {
     [SerializeField] int minTurnsForInconvenience = 5;
     [SerializeField] int maxTurnsForInconvenience = 10;
     [SerializeField] int nextInconvenienceFreedom = 0;
-
-    [Header("Game Settings")]
-    [SerializeField] int maxTurns = 50;
-    [SerializeField] int chanceOfCategory = 10;
-
+    
     [Header("Player Stuff")]
     public static int numberOfPlayers = 0;
     public static List<string> players = new List<string>();
 
-    // Colors
+    [Header("Colors")]
     Color backgroundColor;
     [Header("Categories")]
     [SerializeField] Color inconvenienceColor;
@@ -65,7 +62,6 @@ public class GameController : MonoBehaviour {
     [SerializeField] Color triviaColor;
     [SerializeField] Color specialColor;
     [SerializeField] Color dateColor;
-    [SerializeField] Color pioneerColor;
     public Camera cam;
 
     [Header("Sounds")]
@@ -76,8 +72,15 @@ public class GameController : MonoBehaviour {
     [SerializeField] AudioClip specialEffectSound;
     AudioSource audioSource;
 
-    [Header("Log")]
-    [SerializeField] public static int gameNumber = 0;
+    [Header("Debug")]
+    [SerializeField] int currentTurn;
+    [SerializeField] int inconvenienceCounter = 0;
+    [SerializeField] string currentPlayer;
+    [SerializeField] int cardsInDeck = 0;
+    [SerializeField] int cardsInUsedDeck = 0;
+
+    // Log Stuff
+    public static int gameNumber = 0;
     public static int inconvenienceNumber = 0;
     public static int actionNumber = 0;
     public static int specialNumber = 0;
@@ -93,6 +96,7 @@ public class GameController : MonoBehaviour {
     }
 
     void AddDecks() {
+        // Setup the Deck first.  Anything outside the deck will be part of special assignments.
         if (CardsManager.usedCards.Count == 0) {
             // New Deck, add all available cards
             this.GetComponent<BaseCards>().AddBaseCardsToDeck();
@@ -104,8 +108,11 @@ public class GameController : MonoBehaviour {
             }
         }
 
-        this.GetComponent<CategoryCards>().AddCategoriesCardsToDeck();
-        this.GetComponent<DateCards>().AddDateCardsToDeck();
+        // Add in the special assignment cards.
+
+        this.GetComponent<CategoryCards>().AddCardsToDeck();
+        this.GetComponent<DateCards>().AddCardsToDeck();
+        this.GetComponent<SpecialCards>().AddCardsToDeck();
     }
 
     // Sets up the actual cards and adds them to the deck
@@ -125,7 +132,9 @@ public class GameController : MonoBehaviour {
         }
 
         // Date Card Turn Setup
-        dateCardTurn = Random.Range(5, 35);
+        SetupDateCards();
+        SetupCategoryCards();
+        SetupSpecialCards();
 
         // Reset Inconvenience Counters
         ResetInconveniences();
@@ -172,21 +181,16 @@ public class GameController : MonoBehaviour {
             currentTurn++;
             if (currentTurn > 50) {
                 SceneManager.LoadScene("GameOver");
-            } else {
-                int whatToDo = Random.Range(1, 100);
-                int categoryMin = 0;
-                int categoryMax = chanceOfCategory;
-
-                if (currentTurn == dateCardTurn) {
+            } else {                
+                // Check turn for preset card deployment, otherwise play a card from the base deck.
+                if (dateCardTurn.Contains(currentTurn)) {
                     dealCard = SelectDateCard();
-                }
-                else {
-                    if (whatToDo >= categoryMin && whatToDo <= categoryMax) {
-                        dealCard = SelectRandomCategoryCard();
-                        categoryCounter++;
-                    } else {
-                        dealCard = SelectRandomCard();
-                    }
+                } else if (categoryCardTurn.Contains(currentTurn)) {
+                    dealCard = SelectCategoryCard();
+                } else if (specialCardTurn.Contains(currentTurn)) {
+                    dealCard = SelectSpecialCard();
+                } else {
+                    dealCard = SelectRandomCard();
                 }
 
                 PlayCard(skipThisTurn);
@@ -205,7 +209,6 @@ public class GameController : MonoBehaviour {
     }
 
     void PlayCard(bool skipThisTurn) {
-
         // Set UI Text
         SetUIText(dealCard);
 
@@ -239,20 +242,14 @@ public class GameController : MonoBehaviour {
             int incCounter = 0;
             for (int x = 0; x < cancelInconvenienceString.Count; x++) {
                 if (cancelInconvenienceString[x] == currentPlayer) {
-                    print("found an existing IC with their name, updating counter.");
                     incCounter++;
-                    print("Prior Release: " + cancelInconvenienceTurnSlot[x]);
                     cancelInconvenienceTurnSlot[x] = cancelHere;
-                    print("New Release: " + cancelInconvenienceTurnSlot[x]);
                 } 
             }
 
             if (incCounter == 0) {
-                print("No IC present, just add from scratch.");
                 cancelInconvenienceTurnSlot.Add(cancelHere);
                 cancelInconvenienceString.Add(currentPlayer);
-            } else {
-                print("They already have an existing IC, just update.");
             }
             
             // If this is the first one, or there are no others in the queue, make this one the first.
@@ -269,6 +266,46 @@ public class GameController : MonoBehaviour {
             case "Head to Head": headtoheadNumber++; break;
             case "Trivia": triviaNumber++; break;
             case "Convenience": inconvenienceNumber++; break;
+        }
+    }
+
+    void SetupDateCards() {
+        for (int i = 0; i < dateCardsPerGame; i++) {
+            //dateCardTurn[i] = Random.Range(5, 40);
+            int proposedSlot = Random.Range(5, 40);
+            if (specialCardUsedSlots.Contains(proposedSlot)) {
+                i--;
+            }
+            else {
+                dateCardTurn.Add(proposedSlot);
+                specialCardUsedSlots.Add(proposedSlot);
+            }
+        }
+    }
+
+    void SetupCategoryCards() {
+        for (int i = 0; i < categoryCardsPerGame; i++) {
+            int proposedSlot = Random.Range(2, 50);
+            if (specialCardUsedSlots.Contains(proposedSlot)) {
+                i--;
+            }
+            else {
+                categoryCardTurn.Add(proposedSlot);
+                specialCardUsedSlots.Add(proposedSlot);
+            }
+        }
+    }
+
+    void SetupSpecialCards() {
+        for (int i = 0; i < specialCardsPerGame; i++) {
+            int proposedSlot = Random.Range(2, 50);
+            if (specialCardUsedSlots.Contains(proposedSlot)) {
+                i--;
+            }
+            else {
+                specialCardTurn.Add(proposedSlot);
+                specialCardUsedSlots.Add(proposedSlot);
+            }
         }
     }
 
@@ -350,9 +387,15 @@ public class GameController : MonoBehaviour {
         return thisCard;
     }
 
-    Card SelectRandomCategoryCard() {
+    Card SelectCategoryCard() {
         int randomCard = Random.Range(0, categoryDeck.Count);
         Card thisCard = categoryDeck[randomCard];
+        return thisCard;
+    }
+
+    Card SelectSpecialCard() { 
+        int randomCard = Random.Range(0, specialDeck.Count);
+        Card thisCard = specialDeck[randomCard];
         return thisCard;
     }
 
@@ -396,6 +439,16 @@ public class GameController : MonoBehaviour {
         dateDeck.Add(tempCard);
     }
 
+    public void AddSpecialCard(string cat, int stages, string title, string cText, string cText2 = "") {
+        Card tempCard = new Card();
+        tempCard.cardCategory = cat;
+        tempCard.cardTitle = title;
+        tempCard.cardText = cText;
+        tempCard.stages = stages;
+        tempCard.cardAnswer = cText2;
+        specialDeck.Add(tempCard);
+    }
+
     /************************ UI Stuff ***********************/
 
     void SetBackgroundColor(string category) {
@@ -429,7 +482,6 @@ public class GameController : MonoBehaviour {
                 backgroundColor = dateColor;
                 cardCategory.GetComponent<Text>().color = dateColor;
                 break;
-            case "Pioneer": backgroundColor = pioneerColor; break;
         }
         
         cardBackground.GetComponent<Image>().color = backgroundColor;
