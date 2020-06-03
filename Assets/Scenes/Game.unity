@@ -1726,7 +1726,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2786,6 +2786,8 @@ MonoBehaviour:
   nameListHolder: {fileID: 821989815}
   nameListEntry: {fileID: 6994730262673985491, guid: 8b41e6faf4fd671498026d61cb28e7b4,
     type: 3}
+  nameButton: {fileID: 1408633935}
+  quitButton: {fileID: 1428268865}
   specialCardUsedSlots: 
   dateCardTurn: 
   categoryCardTurn: 
@@ -2809,7 +2811,6 @@ MonoBehaviour:
   specialEffectSound: {fileID: 8300000, guid: 1301d281ede09d4459e5883b649b235c, type: 3}
   currentTurn: 0
   inconvenienceCounter: 0
-  categoryCounter: 0
   currentPlayer: 
   cardsInDeck: 0
   cardsInUsedDeck: 0

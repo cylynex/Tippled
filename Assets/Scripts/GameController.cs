@@ -30,6 +30,8 @@ public class GameController : MonoBehaviour {
     [SerializeField] float musicFadeTime = 3f;
     [SerializeField] Transform nameListHolder;
     [SerializeField] GameObject nameListEntry;
+    [SerializeField] GameObject nameButton;
+    [SerializeField] GameObject quitButton;
     
     bool hasHiddenText = false;
     
@@ -52,6 +54,8 @@ public class GameController : MonoBehaviour {
     [Header("Player Stuff")]
     public static int numberOfPlayers = 0;
     public static List<string> players = new List<string>();
+    bool noNames = false;
+    bool skipThisTurn = false;
 
     [Header("Colors")]
     Color backgroundColor;
@@ -172,10 +176,13 @@ public class GameController : MonoBehaviour {
         cardsInDeck = CardsManager.deckOfCards.Count;
         cardsInUsedDeck = CardsManager.usedCards.Count;
 
-        bool skipThisTurn = false;
+        skipThisTurn = false;
+        noNames = false;
 
         // Check for inconvenience Freedom.  If one is due, do it instead of taking a turn.
-        skipThisTurn = CheckForInconvenienceDue();
+        skipThisTurn = CheckForInconvenienceDue(); 
+
+        //skipThisTurn = CheckForInconvenienceDue();
 
         if (!skipThisTurn) {
             currentTurn++;
@@ -271,7 +278,6 @@ public class GameController : MonoBehaviour {
 
     void SetupDateCards() {
         for (int i = 0; i < dateCardsPerGame; i++) {
-            //dateCardTurn[i] = Random.Range(5, 40);
             int proposedSlot = Random.Range(5, 40);
             if (specialCardUsedSlots.Contains(proposedSlot)) {
                 i--;
@@ -317,7 +323,7 @@ public class GameController : MonoBehaviour {
 
     void UpdatePlayer(bool skipThisTurn) {
         if (GameController.players.Count > 0) {
-            if (dealCard.cardCategory == "Convenience") {
+            if (dealCard.cardCategory == "Convenience" || noNames == true) {
                 playerName.text = "";
             } else {
                 playerName.text = GameController.players[playerIndex];
@@ -356,10 +362,10 @@ public class GameController : MonoBehaviour {
                 PlayCard(skipThisTurn);
             }
         }
-
         return skipThisTurn;
     }
-       
+
+
     /************** Card Handling Methods *******************/
 
     void StandardCardSetup() {
@@ -396,6 +402,8 @@ public class GameController : MonoBehaviour {
     Card SelectSpecialCard() { 
         int randomCard = Random.Range(0, specialDeck.Count);
         Card thisCard = specialDeck[randomCard];
+        noNames = true;
+        skipThisTurn = true;
         return thisCard;
     }
 
@@ -457,30 +465,44 @@ public class GameController : MonoBehaviour {
             case "Inconvenience": 
                 backgroundColor = inconvenienceColor;
                 cardCategory.GetComponent<Text>().color = inconvenienceColor;
+                nameButton.GetComponent<Image>().color = inconvenienceColor;
+                quitButton.GetComponent<Image>().color = inconvenienceColor;
                 break;
             case "Convenience":
                 backgroundColor = inconvenienceColor;
                 cardCategory.GetComponent<Text>().color = inconvenienceColor;
+                nameButton.GetComponent<Image>().color = inconvenienceColor;
+                quitButton.GetComponent<Image>().color = inconvenienceColor;
                 break;
             case "Action": 
                 backgroundColor = actionColor;
                 cardCategory.GetComponent<Text>().color = actionColor;
+                nameButton.GetComponent<Image>().color = actionColor;
+                quitButton.GetComponent<Image>().color = actionColor;
                 break;
             case "Head to Head": 
                 backgroundColor = headToHeadColor;
                 cardCategory.GetComponent<Text>().color = headToHeadColor;
+                nameButton.GetComponent<Image>().color = headToHeadColor;
+                quitButton.GetComponent<Image>().color = headToHeadColor;
                 break;
             case "Trivia": 
                 backgroundColor = triviaColor;
                 cardCategory.GetComponent<Text>().color = triviaColor;
+                nameButton.GetComponent<Image>().color = triviaColor;
+                quitButton.GetComponent<Image>().color = triviaColor;
                 break;
             case "Special": 
                 backgroundColor = specialColor;
                 cardCategory.GetComponent<Text>().color = specialColor;
+                nameButton.GetComponent<Image>().color = specialColor;
+                quitButton.GetComponent<Image>().color = specialColor;
                 break;
             case "Date":
                 backgroundColor = dateColor;
                 cardCategory.GetComponent<Text>().color = dateColor;
+                nameButton.GetComponent<Image>().color = dateColor;
+                quitButton.GetComponent<Image>().color = dateColor;
                 break;
         }
         
