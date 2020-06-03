@@ -380,31 +380,7 @@ public class BaseCards : MonoBehaviour {
         gameController.AddCard("Trivia", 3, "Apocalypse NOW", "This shot includes Jim Beam, Jack Daniels, Jose Cuervo and Johnnie Walker", "Four Horsemen");
         gameController.AddCard("Trivia", 3, "Oh Nelly!", "This shot includes Jim Beam, Jack Daniels, Jose Cuervo, Johnnie Walker and Jagermeister", "Jackson 5");
         gameController.AddCard("Trivia", 3, "Don't forget your thermos", "This drink includes beer, orange juice and amaretto", "Lunchbox");
-
-        // Specials
-        gameController.AddCard("Special", 1, "Pink Flllloyyyyd", "Why does a flamingo stand on one leg?  Who the hell knows!!  Everyone replicate that bird and honor it with a one leg chug.");
-        gameController.AddCard("Special", 1, "Makes No Difference", "Was it sunny out today? It doesn't matter, everybody take a drink!");
-        gameController.AddCard("Special", 1, "LETS GET IT!!!", "Everybody take a big swig.");
-        gameController.AddCard("Special", 1, "Waterfall", "Everyone start drinking at the same time.  Starting with you, stop whenever you want.  Everyone around cannot stop pulling until the person before them does (or they run out of drink).");
-        gameController.AddCard("Special", 1, "Pink Flllloyyyyd", "Why does a flamingo stand on one leg?  Who the hell knows!!  Everyone replicate that bird and honor it with a one leg chug.");
-        gameController.AddCard("Special", 1, "Makes No Difference", "Was it sunny out today? It doesn't matter, everybody take a drink!");
-        gameController.AddCard("Special", 1, "LETS GET IT!!!", "Everybody take a big swig.");
-        gameController.AddCard("Special", 1, "Waterfall", "Starting with you, start drinking.  Stop whenever you want.  Nobody stops drinking until the person before them does (or they run out of drink).");
-        gameController.AddCard("Special", 1, "Higher Lurning", "Anyone in college right now have a drink.");
-        gameController.AddCard("Special", 1, "Workin for the man", "Anyone who worked today, have a drink.");
-        gameController.AddCard("Special", 1, "Day of the Week", "Is it a weekday? All the fellas drink.  If it's a weekend, bottoms up ladies.");
-        gameController.AddCard("Special", 1, "Seasonal Allergies", "What season is it? Drink appropriately. Fall - 1.  Winter - 2.  Spring - 3.  Summer - 5. Just because.");
-        gameController.AddCard("Special", 1, "None Shall Pass", "Everyone have a drink in honor of the fallen black knight.");
-        gameController.AddCard("Special", 1, "Half a J", "Anyone whose drink is less than half full, stop being a b*tch, finish it, and get a new one.");
-        gameController.AddCard("Special", 1, "Merica", "Everybody take a drink for the good-ole US of A, or where ever you might be from.");
-        gameController.AddCard("Special", 1, "Liberty!", "Everybody take a drink for Liberty and Justice for all!");
-        gameController.AddCard("Special", 1, "Woof Woof", "Who let the dogs out? Nobody wants to admit it, so everybody takes a drink.");
-        gameController.AddCard("Special", 1, "Drink!", "Everybody take a drink!");
-        gameController.AddCard("Special", 1, "Drink!", "Everybody take a drink!");
-        gameController.AddCard("Special", 1, "Drink!", "Everybody take a drink!");
-        gameController.AddCard("Special", 1, "Drink!", "Everybody take a drink!");
-        gameController.AddCard("Special", 1, "Take a sip", "… Yeah we thought you all needed a sip, 1 drink this time");
-
+        
         // Pioneer 8 Specials (beta only)
         //gameController.AddCard("Pioneer", 1, "The Jaime Clause", "If your drink is less than half full, finish it and get a fresh one.");
         //gameController.AddCard("Pioneer", 1, "The Rodney Clause", "Talk loudly.  Call people bastards.  Try to spill your drink a bit.  Oh yeah, and have a drink.");

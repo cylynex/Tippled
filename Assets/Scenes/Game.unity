@@ -1726,7 +1726,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2052,18 +2052,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1408633935}
-  m_LocalRotation: {x: -0, y: -0, z: 0.11631734, w: 0.9932121}
+  m_LocalRotation: {x: -0, y: -0, z: 0.011737384, w: 0.99993116}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1580658013}
   m_Father: {fileID: 1243047605}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 13.359}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1.345}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 64.44, y: 25.36}
+  m_SizeDelta: {x: 65, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1408633937
 MonoBehaviour:
@@ -2196,18 +2196,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1428268865}
-  m_LocalRotation: {x: -0, y: -0, z: 0.1077195, w: 0.99418133}
+  m_LocalRotation: {x: -0, y: -0, z: 0.003085339, w: 0.99999523}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1303954417}
   m_Father: {fileID: 1243047605}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 12.368001}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.354}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 63.28, y: 23.38}
+  m_SizeDelta: {x: 65, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1428268867
 MonoBehaviour:
@@ -2751,6 +2751,7 @@ GameObject:
   - component: {fileID: 1849078263}
   - component: {fileID: 1849078265}
   - component: {fileID: 1849078266}
+  - component: {fileID: 1849078264}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -2785,30 +2786,34 @@ MonoBehaviour:
   nameListHolder: {fileID: 821989815}
   nameListEntry: {fileID: 6994730262673985491, guid: 8b41e6faf4fd671498026d61cb28e7b4,
     type: 3}
-  currentTurn: 0
-  inconvenienceCounter: 0
-  categoryCounter: 0
-  dateCardTurn: 0
-  currentPlayer: 
-  cardsInDeck: 0
-  cardsInUsedDeck: 0
+  nameButton: {fileID: 1408633935}
+  quitButton: {fileID: 1428268865}
+  specialCardUsedSlots: 
+  dateCardTurn: 
+  categoryCardTurn: 
+  specialCardTurn: 
+  dateCardsPerGame: 2
+  categoryCardsPerGame: 3
+  specialCardsPerGame: 3
   minTurnsForInconvenience: 5
   maxTurnsForInconvenience: 10
   nextInconvenienceFreedom: 0
-  maxTurns: 50
-  chanceOfCategory: 2
   inconvenienceColor: {r: 1, g: 0, b: 0, a: 1}
   actionColor: {r: 0, g: 0.70603347, b: 1, a: 1}
   headToHeadColor: {r: 1, g: 0.41037738, b: 0.9566517, a: 1}
   triviaColor: {r: 1, g: 0.40784314, b: 0, a: 1}
   specialColor: {r: 0.21975517, g: 1, b: 0, a: 1}
   dateColor: {r: 1, g: 0, b: 0.45882353, a: 1}
-  pioneerColor: {r: 1, g: 0.55146027, b: 0, a: 1}
   cam: {fileID: 339519013}
   curseReversalSound: {fileID: 8300000, guid: 61f3d7aeaa280624ebe5c14c2ab9f7f9, type: 3}
   inconvenienceSound: {fileID: 8300000, guid: dadc1aac430daff47b8658bcd56245f0, type: 3}
   gameOverSound: {fileID: 8300000, guid: 1d78ff26deab29b44b67b81882bd44ef, type: 3}
   specialEffectSound: {fileID: 8300000, guid: 1301d281ede09d4459e5883b649b235c, type: 3}
+  currentTurn: 0
+  inconvenienceCounter: 0
+  currentPlayer: 
+  cardsInDeck: 0
+  cardsInUsedDeck: 0
 --- !u!4 &1849078261
 Transform:
   m_ObjectHideFlags: 0
@@ -2929,6 +2934,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fda0e4a716fbbd147a95d9a880af6d63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameController: {fileID: 1849078260}
+--- !u!114 &1849078264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849078259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51948407fa9122b4e848ce323b9920c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 1849078260}
