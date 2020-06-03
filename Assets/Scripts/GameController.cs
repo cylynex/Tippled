@@ -182,8 +182,6 @@ public class GameController : MonoBehaviour {
         // Check for inconvenience Freedom.  If one is due, do it instead of taking a turn.
         skipThisTurn = CheckForInconvenienceDue(); 
 
-        //skipThisTurn = CheckForInconvenienceDue();
-
         if (!skipThisTurn) {
             currentTurn++;
             if (currentTurn > 50) {
@@ -208,7 +206,6 @@ public class GameController : MonoBehaviour {
     void RevealAnswer() {
         answerPanel.GetComponent<Animation>().Play("AnswerPanelPopup");
         answerPanelActive = true;
-
         cardText.text = "";
         answerPanelTextField.text = cardAnswerText;
         hasHiddenText = false;
