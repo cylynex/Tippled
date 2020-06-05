@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour {
     [SerializeField] int categoryCardsPerGame = 3;
     [SerializeField] int specialCardsPerGame = 3;
     [SerializeField] int inconvenienceCardsPerGame = 6;
+    [SerializeField] int minInconvenienceLength = 5;
+    [SerializeField] int maxInconvenienceLength = 10;
 
     [Header("Debug")]
     [SerializeField] int currentTurn;
@@ -51,14 +53,7 @@ public class GameController : MonoBehaviour {
     [SerializeField] List<int> inconvenienceCardTurn = new List<int>();
     [SerializeField] List<int> inconvenienceFreedomTurn = new List<int>();
     [SerializeField] List<string> inconvenienceFreedomString = new List<string>();
-    
-    [Header("Inconveniences")]
-    [SerializeField] int minTurnsForInconvenience = 5;
-    [SerializeField] int maxTurnsForInconvenience = 10;
-    [SerializeField] int nextInconvenienceFreedom = 0; 
-    List<int> cancelInconvenienceTurnSlot = new List<int>();
-    List<string> cancelInconvenienceString = new List<string>();
-    
+        
     // Player Stuff
     public static int numberOfPlayers = 0;
     public static List<string> players = new List<string>();
@@ -124,7 +119,7 @@ public class GameController : MonoBehaviour {
         SetupUniqueCards(specialCardsPerGame, specialCardTurn);
         SetupUniqueCards(inconvenienceCardsPerGame, inconvenienceCardTurn);
         
-        //ResetInconveniences();
+        ResetInconveniences();
         ShowPlayerNames();                
     }
 
@@ -156,9 +151,6 @@ public class GameController : MonoBehaviour {
 
         skipThisTurn = false;
         noNames = false;
-
-        // Check for inconvenience Freedom.  If one is due, do it instead of taking a turn.
-        //skipThisTurn = CheckForInconvenienceDue();
         
         if (currentTurn >= maxTurnsPerGame) {
             SceneManager.LoadScene("GameOver");
@@ -247,13 +239,12 @@ public class GameController : MonoBehaviour {
     }
     
     void ResetInconveniences() {
-        cancelInconvenienceString.Clear();
-        cancelInconvenienceTurnSlot.Clear();
-        nextInconvenienceFreedom = 0;
+        inconvenienceFreedomString.Clear();
+        inconvenienceFreedomTurn.Clear();
     }
 
     void SetupInconvenienceFreedom() {
-        int cancelAfter = Random.Range(minTurnsForInconvenience, maxTurnsForInconvenience);
+        int cancelAfter = Random.Range(minInconvenienceLength, maxInconvenienceLength);
         int cancelHere = currentTurn + cancelAfter;
 
         // Check for existing inconvenience for this player.  If there is one, just replace the turn slot instead of adding a new one.
@@ -348,42 +339,22 @@ public class GameController : MonoBehaviour {
     /************************ UI Stuff ***********************/
 
     void SetBackgroundColor(string category) {
-        // Change background color
         switch (dealCard.cardCategory) {
-            case "Inconvenience": 
-                backgroundColor = inconvenienceColor;
-                cardCategory.GetComponent<Text>().color = inconvenienceColor;
-                //nameButton.GetComponent<Image>().color = inconvenienceColor;
-                //quitButton.GetComponent<Image>().color = inconvenienceColor;
-                break;
-            case "Convenience":
-                backgroundColor = inconvenienceColor;
-                cardCategory.GetComponent<Text>().color = inconvenienceColor;
-                break;
-            case "Action": 
-                backgroundColor = actionColor;
-                cardCategory.GetComponent<Text>().color = actionColor;
-                break;
-            case "Head to Head": 
-                backgroundColor = headToHeadColor;
-                cardCategory.GetComponent<Text>().color = headToHeadColor;
-                break;
-            case "Trivia": 
-                backgroundColor = triviaColor;
-                cardCategory.GetComponent<Text>().color = triviaColor;
-                break;
-            case "Special": 
-                backgroundColor = specialColor;
-                cardCategory.GetComponent<Text>().color = specialColor;
-                break;
-            case "Date":
-                backgroundColor = dateColor;
-                cardCategory.GetComponent<Text>().color = dateColor;
-                break;
+            case "Inconvenience"    : SetColors(inconvenienceColor); break;
+            case "Convenience"      : SetColors(inconvenienceColor); break;
+            case "Action"           : SetColors(actionColor); break;
+            case "Head to Head"     : SetColors(headToHeadColor); break;
+            case "Trivia"           : SetColors(triviaColor); break;
+            case "Special"          : SetColors(specialColor); break;
+            case "Date"             : SetColors(dateColor); break;   
         }
-        
+    }  
+    
+    void SetColors(Color colorToUse) {
+        backgroundColor = colorToUse; ;
+        cardCategory.GetComponent<Text>().color = colorToUse;
         cardBackground.GetComponent<Image>().color = backgroundColor;
-    }   
+    }
 
     IEnumerator FadeMusic() {
         float t = musicFadeTime;
