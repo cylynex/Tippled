@@ -6,13 +6,21 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
-    // The list of Cards
-    [Header("Cards")]
-    [SerializeField] public List<Card> categoryDeck = new List<Card>(); // Categories Cards
-    [SerializeField] public List<Card> dateDeck = new List<Card>(); // Date Cards
-    [SerializeField] public List<Card> specialDeck = new List<Card>(); // Special Cards
-    Card dealCard;
+    [Header("Settings")]
+    [SerializeField] int maxTurnsPerGame = 50;
+    [SerializeField] int maxReshuffle = 210;
+    [SerializeField] int dateCardsPerGame = 2;
+    [SerializeField] int categoryCardsPerGame = 3;
+    [SerializeField] int specialCardsPerGame = 3;
+    [SerializeField] int inconvenienceCardsPerGame = 6;
 
+    [Header("Debug")]
+    [SerializeField] int currentTurn;
+    [SerializeField] int inconvenienceCounter = 0;
+    [SerializeField] string currentPlayer;
+    [SerializeField] int cardsInDeck = 0;
+    [SerializeField] int cardsInUsedDeck = 0;
+    
     [Header("UI Stuff")]
     public Text cardCategory;
     public Text cardTitle;
@@ -35,31 +43,29 @@ public class GameController : MonoBehaviour {
     
     bool hasHiddenText = false;
     
-    [Header("Special Decks")]
-    [SerializeField] List<int> specialCardUsedSlots = new List<int>();
+    [Header("Decks Slots")]
+    [SerializeField] List<int> uniqueCardUsedSlots = new List<int>();
     [SerializeField] List<int> dateCardTurn = new List<int>();
     [SerializeField] List<int> categoryCardTurn = new List<int>();
     [SerializeField] List<int> specialCardTurn = new List<int>();
-    [SerializeField] int dateCardsPerGame = 2;
-    [SerializeField] int categoryCardsPerGame = 3;
-    [SerializeField] int specialCardsPerGame = 3;
-
-    [Header("Inconvenience Tracking")]
-    List<int> cancelInconvenienceTurnSlot = new List<int>();
-    List<string> cancelInconvenienceString = new List<string>();
+    [SerializeField] List<int> inconvenienceCardTurn = new List<int>();
+    [SerializeField] List<int> inconvenienceFreedomTurn = new List<int>();
+    [SerializeField] List<string> inconvenienceFreedomString = new List<string>();
+    
+    [Header("Inconveniences")]
     [SerializeField] int minTurnsForInconvenience = 5;
     [SerializeField] int maxTurnsForInconvenience = 10;
-    [SerializeField] int nextInconvenienceFreedom = 0;
+    [SerializeField] int nextInconvenienceFreedom = 0; 
+    List<int> cancelInconvenienceTurnSlot = new List<int>();
+    List<string> cancelInconvenienceString = new List<string>();
     
-    [Header("Player Stuff")]
+    // Player Stuff
     public static int numberOfPlayers = 0;
     public static List<string> players = new List<string>();
     bool noNames = false;
     bool skipThisTurn = false;
-    [SerializeField] int maxReshuffle = 210;
+    Card dealCard;
 
-    [Header("Colors")]
-    Color backgroundColor;
     [Header("Categories")]
     [SerializeField] Color inconvenienceColor;
     [SerializeField] Color actionColor;
@@ -67,44 +73,27 @@ public class GameController : MonoBehaviour {
     [SerializeField] Color triviaColor;
     [SerializeField] Color specialColor;
     [SerializeField] Color dateColor;
+    Color backgroundColor;
     public Camera cam;
 
     [Header("Sounds")]
-    AudioSource sound;
     [SerializeField] AudioClip curseReversalSound;
     [SerializeField] AudioClip inconvenienceSound;
     [SerializeField] AudioClip gameOverSound;
     [SerializeField] AudioClip specialEffectSound;
     AudioSource audioSource;
-
-    [Header("Debug")]
-    [SerializeField] int currentTurn;
-    [SerializeField] int inconvenienceCounter = 0;
-    [SerializeField] string currentPlayer;
-    [SerializeField] int cardsInDeck = 0;
-    [SerializeField] int cardsInUsedDeck = 0;
-
-    // Log Stuff
-    public static int gameNumber = 0;
-    public static int inconvenienceNumber = 0;
-    public static int actionNumber = 0;
-    public static int specialNumber = 0;
-    public static int headtoheadNumber = 0;
-    public static int triviaNumber = 0;
-    public static int convenienceNumber = 0;
-
-
+    AudioSource sound;
+    
     void Start() {
         AddDecks();
-        InitializeStuff();
+        InitializeGame();
         DisplayItem();
     }
 
     void AddDecks() {
         // Setup the Deck first.  Anything outside the deck will be part of special assignments.
         if (CardsManager.usedCards.Count == 0) {
-            // New Deck, add all available cards
-            this.GetComponent<BaseCards>().AddBaseCardsToDeck();
+            this.GetComponent<BaseCards>().AddCardsToDeck();
         } else if (CardsManager.usedCards.Count >= maxReshuffle) {
             // Shuffle the oldest 50 back in
             for (int i = 0; i < 50; i++) {
@@ -114,43 +103,29 @@ public class GameController : MonoBehaviour {
         }
 
         // Add in the special assignment cards.
-
         this.GetComponent<CategoryCards>().AddCardsToDeck();
         this.GetComponent<DateCards>().AddCardsToDeck();
         this.GetComponent<SpecialCards>().AddCardsToDeck();
+        this.GetComponent<InconvenienceCards>().AddCardsToDeck();
     }
 
     // Sets up the actual cards and adds them to the deck
-    void InitializeStuff() {
+    void InitializeGame() {
 
         sound = GameObject.FindGameObjectWithTag("Sound Manager").GetComponent<AudioSource>();
-
-        // Set turn to 1
-        currentTurn = 0;
-        
-        // Setup Audio
         audioSource = GetComponent<AudioSource>();
+        currentTurn = 0;
 
         // Turn Music Off
-        if (GameObject.FindGameObjectWithTag("Sound Manager")) {
-            StartCoroutine("FadeMusic");
-        }
+        if (GameObject.FindGameObjectWithTag("Sound Manager")) { StartCoroutine("FadeMusic"); }
 
-        // Date Card Turn Setup
-        SetupDateCards();
-        SetupCategoryCards();
-        SetupSpecialCards();
-
-        // Reset Inconvenience Counters
-        ResetInconveniences();
-
-        // Display the player names
-        for(int i = 0; i < numberOfPlayers; i++) {
-            GameObject thisPlayer = Instantiate(nameListEntry, nameListHolder.position, Quaternion.identity, nameListHolder);
-            thisPlayer.GetComponent<Text>().text = players[i];
-            thisPlayer.name = players[i];
-        }
+        SetupUniqueCards(dateCardsPerGame, dateCardTurn);
+        SetupUniqueCards(categoryCardsPerGame, categoryCardTurn);
+        SetupUniqueCards(specialCardsPerGame, specialCardTurn);
+        SetupUniqueCards(inconvenienceCardsPerGame, inconvenienceCardTurn);
         
+        //ResetInconveniences();
+        ShowPlayerNames();                
     }
 
     // Updates the display (The main Game Loop)
@@ -159,20 +134,22 @@ public class GameController : MonoBehaviour {
         // If we are in the middle of a multi-tap card, do whatever we need to.  Otherwise serve up a new card.
         if (hasHiddenText) {
             RevealAnswer();
-        }
-        else {
+        } else {
             if (answerPanelActive) {
                 answerPanel.GetComponent<Animation>().Play("AnswerPanelSlideOutFromPopup");
                 answerPanelActive = false;
-                Invoke("StandardTurn", .8f);
-            }
-            else {
+                Invoke("StandardTurn", 0.8f);
+            } else {
                 StandardTurn();
             }
         }
     }
 
     void StandardTurn() {
+
+        if (!skipThisTurn) {
+            currentTurn++;
+        }
 
         cardsInDeck = CardsManager.deckOfCards.Count;
         cardsInUsedDeck = CardsManager.usedCards.Count;
@@ -181,40 +158,35 @@ public class GameController : MonoBehaviour {
         noNames = false;
 
         // Check for inconvenience Freedom.  If one is due, do it instead of taking a turn.
-        skipThisTurn = CheckForInconvenienceDue(); 
+        //skipThisTurn = CheckForInconvenienceDue();
+        
+        if (currentTurn >= maxTurnsPerGame) {
+            SceneManager.LoadScene("GameOver");
+        } else {
 
-        if (!skipThisTurn) {
-            currentTurn++;
-            if (currentTurn > 50) {
-                SceneManager.LoadScene("GameOver");
-            } else {                
-                // Check turn for preset card deployment, otherwise play a card from the base deck.
-                if (dateCardTurn.Contains(currentTurn)) {
-                    dealCard = SelectDateCard();
-                } else if (categoryCardTurn.Contains(currentTurn)) {
-                    dealCard = SelectCategoryCard();
-                } else if (specialCardTurn.Contains(currentTurn)) {
-                    dealCard = SelectSpecialCard();
-                } else {
-                    dealCard = SelectRandomCard();
-                }
+            //CheckForInconvenienceDue();
 
-                PlayCard(skipThisTurn);
+            if (inconvenienceFreedomTurn.Contains(currentTurn)) {
+                CheckForInconvenienceDue();
+            } else if (dateCardTurn.Contains(currentTurn)) {
+                dealCard = SelectRandomUniqueCard(CardsManager.dateCards, dateCardTurn, false, false);
+            } else if (categoryCardTurn.Contains(currentTurn)) {
+                dealCard = SelectRandomUniqueCard(CardsManager.categoryCards, categoryCardTurn, false, false);
+            } else if (specialCardTurn.Contains(currentTurn)) {
+                dealCard = SelectRandomUniqueCard(CardsManager.specialCards, specialCardTurn, true, true);
+            } else if (inconvenienceCardTurn.Contains(currentTurn)) {
+                dealCard = SelectRandomUniqueCard(CardsManager.inconvenienceCards, inconvenienceCardTurn, false, false);
+                SetupInconvenienceFreedom();
+            } else {
+                dealCard = SelectRandomCard();
             }
-        }
+            
+            PlayCard();
+        }        
     }
-
-    void RevealAnswer() {
-        answerPanel.GetComponent<Animation>().Play("AnswerPanelPopup");
-        answerPanelActive = true;
-        cardText.text = "";
-        answerPanelTextField.text = cardAnswerText;
-        hasHiddenText = false;
-        clickToContinue.SetActive(false);
-    }
-
-    void PlayCard(bool skipThisTurn) {
-        // Set UI Text
+    
+    void PlayCard() {
+        
         SetUIText(dealCard);
 
         // Set the BG color based on category
@@ -228,141 +200,86 @@ public class GameController : MonoBehaviour {
         } else if (dealCard.stages == 3) {
             TriviaCardSetup();
         }
-
-        // Put in the Player Name
-        UpdatePlayer(skipThisTurn);
-
+        
         // Animate the title
         canvas.GetComponent<Animation>().Play("NewSlide");
-
+        
         // Play the appropriate Sound
         PlaySound();
-
-        // Log inconvenience
-        if (dealCard.cardCategory == "Inconvenience") {
-            int cancelAfter = Random.Range(minTurnsForInconvenience, maxTurnsForInconvenience);
-            int cancelHere = currentTurn + cancelAfter;
-
-            // Check for existing inconvenience for this player.  If there is one, just replace the turn slot instead of adding a new one.
-            int incCounter = 0;
-            for (int x = 0; x < cancelInconvenienceString.Count; x++) {
-                if (cancelInconvenienceString[x] == currentPlayer) {
-                    incCounter++;
-                    cancelInconvenienceTurnSlot[x] = cancelHere;
-                } 
-            }
-
-            if (incCounter == 0) {
-                cancelInconvenienceTurnSlot.Add(cancelHere);
-                cancelInconvenienceString.Add(currentPlayer);
-            }
-            
-            // If this is the first one, or there are no others in the queue, make this one the first.
-            if (nextInconvenienceFreedom == 0) {
-                nextInconvenienceFreedom = cancelHere;
-            }
-        }
-
-        // Debug stuff
-        switch(dealCard.cardCategory) {
-            case "Inconvenience": inconvenienceNumber++; break;
-            case "Action": actionNumber++; break;
-            case "Special": specialNumber++; break;
-            case "Head to Head": headtoheadNumber++; break;
-            case "Trivia": triviaNumber++; break;
-            case "Convenience": inconvenienceNumber++; break;
-        }
+        DisplayPlayerName();
+        UpdatePlayer();
     }
 
-    void SetupDateCards() {
-        for (int i = 0; i < dateCardsPerGame; i++) {
-            int proposedSlot = Random.Range(5, 40);
-            if (specialCardUsedSlots.Contains(proposedSlot)) {
-                i--;
+    void DisplayPlayerName() {
+        if (dealCard.cardCategory == "Convenience" || noNames == true) {
+            playerName.text = "";
+        }
+        else {
+            playerName.text = GameController.players[playerIndex];
+        }
+    }
+    
+    void UpdatePlayer() { 
+        if (!skipThisTurn) {
+            if (playerIndex >= (GameController.players.Count - 1)) {
+                playerIndex = 0;
+            } else {
+                playerIndex++;
             }
-            else {
-                dateCardTurn.Add(proposedSlot);
-                specialCardUsedSlots.Add(proposedSlot);
+            currentPlayer = GameController.players[playerIndex];
+        }
+
+        foreach (Transform child in nameListHolder) {
+            if (child.gameObject.name == playerName.text) {
+                child.gameObject.GetComponent<Text>().color = Color.white;
+            } else {
+                child.gameObject.GetComponent<Text>().color = Color.black;
             }
         }
     }
 
-    void SetupCategoryCards() {
-        for (int i = 0; i < categoryCardsPerGame; i++) {
-            int proposedSlot = Random.Range(2, 50);
-            if (specialCardUsedSlots.Contains(proposedSlot)) {
-                i--;
-            }
-            else {
-                categoryCardTurn.Add(proposedSlot);
-                specialCardUsedSlots.Add(proposedSlot);
-            }
+    void ShowPlayerNames() {
+        for (int i = 0; i < numberOfPlayers; i++) {
+            GameObject thisPlayer = Instantiate(nameListEntry, nameListHolder.position, Quaternion.identity, nameListHolder);
+            thisPlayer.GetComponent<Text>().text = players[i];
+            thisPlayer.name = players[i];
         }
     }
-
-    void SetupSpecialCards() {
-        for (int i = 0; i < specialCardsPerGame; i++) {
-            int proposedSlot = Random.Range(2, 50);
-            if (specialCardUsedSlots.Contains(proposedSlot)) {
-                i--;
-            }
-            else {
-                specialCardTurn.Add(proposedSlot);
-                specialCardUsedSlots.Add(proposedSlot);
-            }
-        }
-    }
-
+    
     void ResetInconveniences() {
         cancelInconvenienceString.Clear();
         cancelInconvenienceTurnSlot.Clear();
         nextInconvenienceFreedom = 0;
     }
 
-    void UpdatePlayer(bool skipThisTurn) {
-        if (GameController.players.Count > 0) {
-            if (dealCard.cardCategory == "Convenience" || noNames == true) {
-                playerName.text = "";
-            } else {
-                playerName.text = GameController.players[playerIndex];
+    void SetupInconvenienceFreedom() {
+        int cancelAfter = Random.Range(minTurnsForInconvenience, maxTurnsForInconvenience);
+        int cancelHere = currentTurn + cancelAfter;
+
+        // Check for existing inconvenience for this player.  If there is one, just replace the turn slot instead of adding a new one.
+        int incCounter = 0;
+        for (int x = 0; x < inconvenienceFreedomString.Count; x++) {
+            if (inconvenienceFreedomString[x] == currentPlayer) {
+                incCounter++;
+                inconvenienceFreedomTurn[x] = cancelHere;
             }
+        }
 
-            currentPlayer = GameController.players[playerIndex];
-            if (!skipThisTurn) {
-                if (playerIndex >= (GameController.players.Count - 1)) {
-                    playerIndex = 0;
-                } else {
-                    playerIndex++;
-                }
-            }
-
-
-
-            foreach(Transform child in nameListHolder) {
-                if (child.gameObject.name == playerName.text) {
-                    child.gameObject.GetComponent<Text>().color = Color.white;
-                } else {
-                    child.gameObject.GetComponent<Text>().color = Color.black;
-                }
-            }
-
+        if (incCounter == 0) {
+            inconvenienceFreedomTurn.Add(cancelHere);
+            inconvenienceFreedomString.Add(currentPlayer);
         }
     }
 
-    bool CheckForInconvenienceDue() {
-        bool skipThisTurn = false;
-        for (int i = 0; i < cancelInconvenienceTurnSlot.Count; i++) {
-            if (currentTurn == cancelInconvenienceTurnSlot[i]) {
-                dealCard = SetupClearInconvenienceCard(cancelInconvenienceString[i]);
-                skipThisTurn = true;
-                cancelInconvenienceTurnSlot.RemoveAt(i);
-                cancelInconvenienceString.RemoveAt(i);
-                PlayCard(skipThisTurn);
+    void CheckForInconvenienceDue() {
+        for (int i = 0; i < inconvenienceFreedomTurn.Count; i++) {
+            if (currentTurn == inconvenienceFreedomTurn[i]) {
+                dealCard = SelectInconvenienceFreedomCard(inconvenienceFreedomString[i]);
+                inconvenienceFreedomTurn.RemoveAt(i);
+                inconvenienceFreedomString.RemoveAt(i);
             }
         }
-        return skipThisTurn;
     }
-
 
     /************** Card Handling Methods *******************/
 
@@ -377,6 +294,19 @@ public class GameController : MonoBehaviour {
         clickToContinue.SetActive(true);
     }
 
+    void SetupUniqueCards(int cardsPerGame, List<int> turnList) {
+        for (int i = 0; i < cardsPerGame; i++) {
+            int proposedSlot = Random.Range(5, 40);
+            if (uniqueCardUsedSlots.Contains(proposedSlot)) {
+                i--;
+            }
+            else {
+                turnList.Add(proposedSlot);
+                uniqueCardUsedSlots.Add(proposedSlot);
+            }
+        }
+    }    
+
     Card SelectRandomCard() {
         int randomCard = Random.Range(0, CardsManager.deckOfCards.Count);
         Card thisCard = CardsManager.deckOfCards[randomCard];
@@ -385,74 +315,34 @@ public class GameController : MonoBehaviour {
         return thisCard;
     }
 
-    Card SelectDateCard() {
-        int randomCard = 0;
-        Card thisCard = dateDeck[randomCard];
+    Card SelectRandomUniqueCard(List<Card> deckToUse, List<int> thisDeckTurn, bool names, bool skipTurn) {
+        int randomCard = Random.Range(0, deckToUse.Count);
+        Card thisCard = deckToUse[randomCard];
+        noNames = names;
+        skipThisTurn = skipTurn;
+        thisDeckTurn.Remove(currentTurn);
         return thisCard;
     }
-
-    Card SelectCategoryCard() {
-        int randomCard = Random.Range(0, categoryDeck.Count);
-        Card thisCard = categoryDeck[randomCard];
-        return thisCard;
-    }
-
-    Card SelectSpecialCard() { 
-        int randomCard = Random.Range(0, specialDeck.Count);
-        Card thisCard = specialDeck[randomCard];
-        noNames = true;
-        skipThisTurn = true;
-        return thisCard;
-    }
-
-    Card SetupClearInconvenienceCard(string thisPlayerName) {
+    
+    Card SelectInconvenienceFreedomCard(string thisPlayerName) {
         Card thisCard = CardsManager.deckOfCards[0];
         thisCard.cardCategory = "Convenience";
         string cardTextout = thisPlayerName.ToString()+ " is relieved of all inconveniences.  For now.";
         thisCard.cardText = cardTextout;
         thisCard.cardTitle = "No Longer Inconvenienced";
         thisCard.stages = 1;
+        skipThisTurn = true;
         return thisCard;
     }    
 
-    public void AddCard(string cat, int stages, string title, string cText, string cText2 = "") {
+    public void AddCardToDeck(List<Card> thisDeck, string cat, int stages, string title, string cText, string cText2 = "") {
         Card tempCard = new Card();
         tempCard.cardCategory = cat;
         tempCard.cardTitle = title;
         tempCard.cardText = cText;
         tempCard.stages = stages;
         tempCard.cardAnswer = cText2;
-        CardsManager.deckOfCards.Add(tempCard);
-    }
-
-    public void AddCategoryCard(string cat, int stages, string title, string cText, string cText2 = "") {
-        Card tempCard = new Card();
-        tempCard.cardCategory = cat;
-        tempCard.cardTitle = title;
-        tempCard.cardText = cText;
-        tempCard.stages = stages;
-        tempCard.cardAnswer = cText2;
-        categoryDeck.Add(tempCard);
-    }
-
-    public void AddDateCard(string cat, int stages, string title, string cText, string cText2 = "") {
-        Card tempCard = new Card();
-        tempCard.cardCategory = cat;
-        tempCard.cardTitle = title;
-        tempCard.cardText = cText;
-        tempCard.stages = stages;
-        tempCard.cardAnswer = cText2;
-        dateDeck.Add(tempCard);
-    }
-
-    public void AddSpecialCard(string cat, int stages, string title, string cText, string cText2 = "") {
-        Card tempCard = new Card();
-        tempCard.cardCategory = cat;
-        tempCard.cardTitle = title;
-        tempCard.cardText = cText;
-        tempCard.stages = stages;
-        tempCard.cardAnswer = cText2;
-        specialDeck.Add(tempCard);
+        thisDeck.Add(tempCard);
     }
 
     /************************ UI Stuff ***********************/
@@ -522,5 +412,14 @@ public class GameController : MonoBehaviour {
         cardTitle.text = cardData.cardTitle;
         cardText.text = cardData.cardText;
         cardAnswer.text = " ";
+    }
+
+    void RevealAnswer() {
+        answerPanel.GetComponent<Animation>().Play("AnswerPanelPopup");
+        answerPanelActive = true;
+        cardText.text = "";
+        answerPanelTextField.text = cardAnswerText;
+        hasHiddenText = false;
+        clickToContinue.SetActive(false);
     }
 }
