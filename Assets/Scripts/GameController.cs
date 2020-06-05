@@ -86,11 +86,11 @@ public class GameController : MonoBehaviour {
     }
 
     void AddDecks() {
-        // Setup the Deck first.  Anything outside the deck will be part of special assignments.
+
+        // Setup Deck.  If not first game and we've used more than max shuffle cards in discard, add the oldest 50 back in.
         if (CardsManager.usedCards.Count == 0) {
             this.GetComponent<BaseCards>().AddCardsToDeck();
         } else if (CardsManager.usedCards.Count >= maxReshuffle) {
-            // Shuffle the oldest 50 back in
             for (int i = 0; i < 50; i++) {
                 CardsManager.deckOfCards.Add(CardsManager.usedCards[0]);
                 CardsManager.usedCards.RemoveAt(0);
