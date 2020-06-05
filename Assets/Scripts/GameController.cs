@@ -56,6 +56,7 @@ public class GameController : MonoBehaviour {
     public static List<string> players = new List<string>();
     bool noNames = false;
     bool skipThisTurn = false;
+    [SerializeField] int maxReshuffle = 210;
 
     [Header("Colors")]
     Color backgroundColor;
@@ -104,7 +105,7 @@ public class GameController : MonoBehaviour {
         if (CardsManager.usedCards.Count == 0) {
             // New Deck, add all available cards
             this.GetComponent<BaseCards>().AddBaseCardsToDeck();
-        } else if (CardsManager.usedCards.Count > 142) {
+        } else if (CardsManager.usedCards.Count >= maxReshuffle) {
             // Shuffle the oldest 50 back in
             for (int i = 0; i < 50; i++) {
                 CardsManager.deckOfCards.Add(CardsManager.usedCards[0]);
@@ -462,44 +463,32 @@ public class GameController : MonoBehaviour {
             case "Inconvenience": 
                 backgroundColor = inconvenienceColor;
                 cardCategory.GetComponent<Text>().color = inconvenienceColor;
-                nameButton.GetComponent<Image>().color = inconvenienceColor;
-                quitButton.GetComponent<Image>().color = inconvenienceColor;
+                //nameButton.GetComponent<Image>().color = inconvenienceColor;
+                //quitButton.GetComponent<Image>().color = inconvenienceColor;
                 break;
             case "Convenience":
                 backgroundColor = inconvenienceColor;
                 cardCategory.GetComponent<Text>().color = inconvenienceColor;
-                nameButton.GetComponent<Image>().color = inconvenienceColor;
-                quitButton.GetComponent<Image>().color = inconvenienceColor;
                 break;
             case "Action": 
                 backgroundColor = actionColor;
                 cardCategory.GetComponent<Text>().color = actionColor;
-                nameButton.GetComponent<Image>().color = actionColor;
-                quitButton.GetComponent<Image>().color = actionColor;
                 break;
             case "Head to Head": 
                 backgroundColor = headToHeadColor;
                 cardCategory.GetComponent<Text>().color = headToHeadColor;
-                nameButton.GetComponent<Image>().color = headToHeadColor;
-                quitButton.GetComponent<Image>().color = headToHeadColor;
                 break;
             case "Trivia": 
                 backgroundColor = triviaColor;
                 cardCategory.GetComponent<Text>().color = triviaColor;
-                nameButton.GetComponent<Image>().color = triviaColor;
-                quitButton.GetComponent<Image>().color = triviaColor;
                 break;
             case "Special": 
                 backgroundColor = specialColor;
                 cardCategory.GetComponent<Text>().color = specialColor;
-                nameButton.GetComponent<Image>().color = specialColor;
-                quitButton.GetComponent<Image>().color = specialColor;
                 break;
             case "Date":
                 backgroundColor = dateColor;
                 cardCategory.GetComponent<Text>().color = dateColor;
-                nameButton.GetComponent<Image>().color = dateColor;
-                quitButton.GetComponent<Image>().color = dateColor;
                 break;
         }
         
