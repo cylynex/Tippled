@@ -1634,7 +1634,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 16.900024, y: 26.600037}
+  m_AnchoredPosition: {x: 16.899902, y: 26.599976}
   m_SizeDelta: {x: 70.134735, y: 59.323593}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1243047606
@@ -1695,11 +1695,11 @@ RectTransform:
   m_Father: {fileID: 1681066653}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 5.47, y: 100.2}
-  m_SizeDelta: {x: 546.2, y: 181.40834}
-  m_Pivot: {x: 0.5, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -8.7}
+  m_SizeDelta: {x: 546.2, y: 181.40833}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1262257683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2624,7 +2624,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 5.47, y: -51.17505}
+  m_AnchoredPosition: {x: 5.47, y: -38.1}
   m_SizeDelta: {x: 669.76, y: 112.22007}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1765582705
@@ -2778,6 +2778,8 @@ MonoBehaviour:
   categoryCardsPerGame: 3
   specialCardsPerGame: 3
   inconvenienceCardsPerGame: 6
+  minInconvenienceLength: 5
+  maxInconvenienceLength: 10
   currentTurn: 0
   inconvenienceCounter: 0
   currentPlayer: 
@@ -2805,9 +2807,8 @@ MonoBehaviour:
   categoryCardTurn: 
   specialCardTurn: 
   inconvenienceCardTurn: 
-  minTurnsForInconvenience: 5
-  maxTurnsForInconvenience: 10
-  nextInconvenienceFreedom: 0
+  inconvenienceFreedomTurn: 
+  inconvenienceFreedomString: []
   inconvenienceColor: {r: 1, g: 0, b: 0, a: 1}
   actionColor: {r: 0, g: 0.70603347, b: 1, a: 1}
   headToHeadColor: {r: 1, g: 0.41037738, b: 0.9566517, a: 1}
