@@ -1634,7 +1634,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 16.900024, y: 26.600037}
+  m_AnchoredPosition: {x: 16.899902, y: 26.599976}
   m_SizeDelta: {x: 70.134735, y: 59.323593}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1243047606
@@ -1695,11 +1695,11 @@ RectTransform:
   m_Father: {fileID: 1681066653}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 5.47, y: 100.2}
-  m_SizeDelta: {x: 546.2, y: 181.40834}
-  m_Pivot: {x: 0.5, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -8.7}
+  m_SizeDelta: {x: 546.2, y: 181.40833}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1262257683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2624,7 +2624,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 5.47, y: -51.17505}
+  m_AnchoredPosition: {x: 5.47, y: -38.1}
   m_SizeDelta: {x: 669.76, y: 112.22007}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1765582705
@@ -2752,6 +2752,7 @@ GameObject:
   - component: {fileID: 1849078265}
   - component: {fileID: 1849078266}
   - component: {fileID: 1849078264}
+  - component: {fileID: 1849078267}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -2771,6 +2772,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be680cb34d64481b9246be389f3364f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxTurnsPerGame: 50
+  maxReshuffle: 210
+  dateCardsPerGame: 2
+  categoryCardsPerGame: 3
+  specialCardsPerGame: 3
+  inconvenienceCardsPerGame: 6
+  minInconvenienceLength: 5
+  maxInconvenienceLength: 10
+  currentTurn: 0
+  inconvenienceCounter: 0
+  currentPlayer: 
+  cardsInDeck: 0
+  cardsInUsedDeck: 0
   cardCategory: {fileID: 833982950}
   cardTitle: {fileID: 1765582706}
   cardText: {fileID: 1262257683}
@@ -2788,16 +2802,13 @@ MonoBehaviour:
     type: 3}
   nameButton: {fileID: 1408633935}
   quitButton: {fileID: 1428268865}
-  specialCardUsedSlots: 
+  uniqueCardUsedSlots: 
   dateCardTurn: 
   categoryCardTurn: 
   specialCardTurn: 
-  dateCardsPerGame: 2
-  categoryCardsPerGame: 3
-  specialCardsPerGame: 3
-  minTurnsForInconvenience: 5
-  maxTurnsForInconvenience: 10
-  nextInconvenienceFreedom: 0
+  inconvenienceCardTurn: 
+  inconvenienceFreedomTurn: 
+  inconvenienceFreedomString: []
   inconvenienceColor: {r: 1, g: 0, b: 0, a: 1}
   actionColor: {r: 0, g: 0.70603347, b: 1, a: 1}
   headToHeadColor: {r: 1, g: 0.41037738, b: 0.9566517, a: 1}
@@ -2809,11 +2820,6 @@ MonoBehaviour:
   inconvenienceSound: {fileID: 8300000, guid: dadc1aac430daff47b8658bcd56245f0, type: 3}
   gameOverSound: {fileID: 8300000, guid: 1d78ff26deab29b44b67b81882bd44ef, type: 3}
   specialEffectSound: {fileID: 8300000, guid: 1301d281ede09d4459e5883b649b235c, type: 3}
-  currentTurn: 0
-  inconvenienceCounter: 0
-  currentPlayer: 
-  cardsInDeck: 0
-  cardsInUsedDeck: 0
 --- !u!4 &1849078261
 Transform:
   m_ObjectHideFlags: 0
@@ -2973,6 +2979,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8321c11681616934c96e067746c4fa85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameController: {fileID: 1849078260}
+--- !u!114 &1849078267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849078259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe27d0ec8099baa489ee43517e4563f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 1849078260}
