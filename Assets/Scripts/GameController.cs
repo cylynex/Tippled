@@ -156,8 +156,6 @@ public class GameController : MonoBehaviour {
             SceneManager.LoadScene("GameOver");
         } else {
 
-            //CheckForInconvenienceDue();
-
             if (inconvenienceFreedomTurn.Contains(currentTurn)) {
                 CheckForInconvenienceDue();
             } else if (dateCardTurn.Contains(currentTurn)) {
@@ -180,63 +178,18 @@ public class GameController : MonoBehaviour {
     void PlayCard() {
         
         SetUIText(dealCard);
-
-        // Set the BG color based on category
         SetBackgroundColor(dealCard.cardCategory);
-
-        // Alternative displays
-        if (dealCard.stages == 1) {
-            StandardCardSetup();
-        } else if (dealCard.stages == 2) {
-            // unused
-        } else if (dealCard.stages == 3) {
-            TriviaCardSetup();
-        }
-        
+        SetupTurnType();
+                
         // Animate the title
         canvas.GetComponent<Animation>().Play("NewSlide");
         
-        // Play the appropriate Sound
         PlaySound();
         DisplayPlayerName();
         UpdatePlayer();
     }
 
-    void DisplayPlayerName() {
-        if (dealCard.cardCategory == "Convenience" || noNames == true) {
-            playerName.text = "";
-        }
-        else {
-            playerName.text = GameController.players[playerIndex];
-        }
-    }
     
-    void UpdatePlayer() { 
-        if (!skipThisTurn) {
-            if (playerIndex >= (GameController.players.Count - 1)) {
-                playerIndex = 0;
-            } else {
-                playerIndex++;
-            }
-            currentPlayer = GameController.players[playerIndex];
-        }
-
-        foreach (Transform child in nameListHolder) {
-            if (child.gameObject.name == playerName.text) {
-                child.gameObject.GetComponent<Text>().color = Color.white;
-            } else {
-                child.gameObject.GetComponent<Text>().color = Color.black;
-            }
-        }
-    }
-
-    void ShowPlayerNames() {
-        for (int i = 0; i < numberOfPlayers; i++) {
-            GameObject thisPlayer = Instantiate(nameListEntry, nameListHolder.position, Quaternion.identity, nameListHolder);
-            thisPlayer.GetComponent<Text>().text = players[i];
-            thisPlayer.name = players[i];
-        }
-    }
     
     void ResetInconveniences() {
         inconvenienceFreedomString.Clear();
@@ -272,7 +225,48 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    /************** Player Handling Methods *****************/
+    void DisplayPlayerName() {
+        if (dealCard.cardCategory == "Convenience" || noNames == true) { playerName.text = ""; }
+        else { playerName.text = GameController.players[playerIndex]; }
+    }
+
+    void UpdatePlayer() {
+        if (!skipThisTurn) {
+            if (playerIndex >= (GameController.players.Count - 1)) {
+                playerIndex = 0;
+            }
+            else {
+                playerIndex++;
+            }
+            currentPlayer = GameController.players[playerIndex];
+        }
+
+        foreach (Transform child in nameListHolder) {
+            if (child.gameObject.name == playerName.text) {
+                child.gameObject.GetComponent<Text>().color = Color.white;
+            }
+            else {
+                child.gameObject.GetComponent<Text>().color = Color.black;
+            }
+        }
+    }
+
+    void ShowPlayerNames() {
+        for (int i = 0; i < numberOfPlayers; i++) {
+            GameObject thisPlayer = Instantiate(nameListEntry, nameListHolder.position, Quaternion.identity, nameListHolder);
+            thisPlayer.GetComponent<Text>().text = players[i];
+            thisPlayer.name = players[i];
+        }
+    }
+
     /************** Card Handling Methods *******************/
+
+    void SetupTurnType() {
+        // Alternative displays
+        if (dealCard.stages == 1) { StandardCardSetup(); }
+        else if (dealCard.stages == 3) { TriviaCardSetup(); }
+    }
 
     void StandardCardSetup() {
         cardAnswer.text = "";
@@ -290,8 +284,7 @@ public class GameController : MonoBehaviour {
             int proposedSlot = Random.Range(5, 40);
             if (uniqueCardUsedSlots.Contains(proposedSlot)) {
                 i--;
-            }
-            else {
+            } else {
                 turnList.Add(proposedSlot);
                 uniqueCardUsedSlots.Add(proposedSlot);
             }
@@ -334,6 +327,15 @@ public class GameController : MonoBehaviour {
         tempCard.stages = stages;
         tempCard.cardAnswer = cText2;
         thisDeck.Add(tempCard);
+    }
+
+    void RevealAnswer() {
+        answerPanel.GetComponent<Animation>().Play("AnswerPanelPopup");
+        answerPanelActive = true;
+        cardText.text = "";
+        answerPanelTextField.text = cardAnswerText;
+        hasHiddenText = false;
+        clickToContinue.SetActive(false);
     }
 
     /************************ UI Stuff ***********************/
@@ -383,14 +385,5 @@ public class GameController : MonoBehaviour {
         cardTitle.text = cardData.cardTitle;
         cardText.text = cardData.cardText;
         cardAnswer.text = " ";
-    }
-
-    void RevealAnswer() {
-        answerPanel.GetComponent<Animation>().Play("AnswerPanelPopup");
-        answerPanelActive = true;
-        cardText.text = "";
-        answerPanelTextField.text = cardAnswerText;
-        hasHiddenText = false;
-        clickToContinue.SetActive(false);
     }
 }

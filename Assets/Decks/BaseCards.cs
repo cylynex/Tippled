@@ -40,8 +40,6 @@ public class BaseCards : MonoBehaviour {
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Head to Head", 1, "Don't Breathe", "Breath holding contest!  Choose someone to compete against.  Hold it as long as you can, because loser downs their drink");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Head to Head", 1, "Get to the Choppa", "Arnold Contest.  Choose someone in the room to compete against with Arnold impressions, and we do not mean through voice.  Flex it instead, let's see what you got.");
 
-
-
         // Action
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Playground Antics", "Make up a new name for someone.  That's now their name.  Anytime someone addresses them incorrectly, they drink.  This is not an inconvenience, this is for the rest of the game.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "CHUG! CHUG! CHUG!", "Finish your drink.");
@@ -327,15 +325,12 @@ public class BaseCards : MonoBehaviour {
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "If I could, I would....", "Finish that sentence while addressing the person on your right.  If they agree with you, hand out 2 drinks.  If they do not, drink them yourself.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "If I could go anywhere right now...", "Start it off and then go around the room.  Whoever has the best idea by popular opinion watches while everyone else has a drink.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Celebrity Impersonation", "You have 30 seconds to impersonate a celebrity of your choice.  If someone guesses it, you each hand out a drink.  If not, you have a drink.");
-
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Song Sung You", "Name a hit song and go around the room.  First person to be unable to do so drinks.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Twin Cannons", "Grab a second drink.  Double fist till one of them is dry.  Start with a sip now.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Twin Cannons", "Grab a second drink.  Double fist till one of them is dry.  Start with a sip now.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Twin Cannons", "Grab a second drink.  Double fist till one of them is dry.  Start with a sip now.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Twin Cannons", "Grab a second drink.  Double fist till one of them is dry.  Start with a sip now.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Moose", "Ever seen a dog slurp their drink out of a bowl?  Get to it, grab a bowl, and everyone pour a little of their drink in and you suck it all up to the last drop. Yummmm!!");
-        gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Moose", "Ever seen a dog slurp their drink out of a bowl?  Get to it, grab a bowl, and everyone pour a little of their drink in and you suck it all up to the last drop. Yummmm!!");
-
 
         // Trivia
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Trivia", 3, "3 to the D", "What console was the first one that you could play 3D games on?  If you can't name this then have a drink for 1993", "Super Nintendo");
