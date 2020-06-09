@@ -2753,6 +2753,7 @@ GameObject:
   - component: {fileID: 1849078266}
   - component: {fileID: 1849078264}
   - component: {fileID: 1849078267}
+  - component: {fileID: 1849078268}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -2777,11 +2778,11 @@ MonoBehaviour:
   dateCardsPerGame: 2
   categoryCardsPerGame: 3
   specialCardsPerGame: 3
-  inconvenienceCardsPerGame: 6
+  chugCardsPerGame: 2
+  inconvenienceCardsPerGame: 4
   minInconvenienceLength: 5
   maxInconvenienceLength: 10
   currentTurn: 0
-  inconvenienceCounter: 0
   currentPlayer: 
   cardsInDeck: 0
   cardsInUsedDeck: 0
@@ -2789,32 +2790,30 @@ MonoBehaviour:
   cardTitle: {fileID: 1765582706}
   cardText: {fileID: 1262257683}
   cardAnswer: {fileID: 686610784}
+  playerName: {fileID: 1946353018}
   clickToContinue: {fileID: 1089024729}
   cardBackground: {fileID: 719396592}
   answerPanel: {fileID: 326538862}
   answerPanelTextField: {fileID: 733969828}
   canvas: {fileID: 1681066652}
-  playerName: {fileID: 1946353018}
-  playerIndex: 0
-  musicFadeTime: 3
-  nameListHolder: {fileID: 821989815}
-  nameListEntry: {fileID: 6994730262673985491, guid: 8b41e6faf4fd671498026d61cb28e7b4,
-    type: 3}
-  nameButton: {fileID: 1408633935}
-  quitButton: {fileID: 1428268865}
   uniqueCardUsedSlots: 
   dateCardTurn: 
   categoryCardTurn: 
   specialCardTurn: 
+  chugCardTurn: 
   inconvenienceCardTurn: 
   inconvenienceFreedomTurn: 
   inconvenienceFreedomString: []
+  nameListHolder: {fileID: 821989815}
+  nameListEntry: {fileID: 6994730262673985491, guid: 8b41e6faf4fd671498026d61cb28e7b4,
+    type: 3}
   inconvenienceColor: {r: 1, g: 0, b: 0, a: 1}
   actionColor: {r: 0, g: 0.70603347, b: 1, a: 1}
   headToHeadColor: {r: 1, g: 0.41037738, b: 0.9566517, a: 1}
   triviaColor: {r: 1, g: 0.40784314, b: 0, a: 1}
   specialColor: {r: 0.21975517, g: 1, b: 0, a: 1}
   dateColor: {r: 1, g: 0, b: 0.45882353, a: 1}
+  chugColor: {r: 0.65882355, g: 0.03137255, b: 0.9607843, a: 1}
   cam: {fileID: 339519013}
   curseReversalSound: {fileID: 8300000, guid: 61f3d7aeaa280624ebe5c14c2ab9f7f9, type: 3}
   inconvenienceSound: {fileID: 8300000, guid: dadc1aac430daff47b8658bcd56245f0, type: 3}
@@ -2992,6 +2991,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe27d0ec8099baa489ee43517e4563f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameController: {fileID: 1849078260}
+--- !u!114 &1849078268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849078259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aabfa8b374c389a45b67c383bca165b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 1849078260}

@@ -11,4 +11,5 @@ public class CardsManager : MonoBehaviour {
     public static List<Card> categoryCards = new List<Card>();
     public static List<Card> specialCards = new List<Card>();
     public static List<Card> inconvenienceCards = new List<Card>();
+    public static List<Card> chugCards = new List<Card>();
 }

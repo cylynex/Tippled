@@ -6,19 +6,21 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
+    Card dealCard;
+
     [Header("Settings")]
     [SerializeField] int maxTurnsPerGame = 50;
     [SerializeField] int maxReshuffle = 210;
     [SerializeField] int dateCardsPerGame = 2;
     [SerializeField] int categoryCardsPerGame = 3;
     [SerializeField] int specialCardsPerGame = 3;
+    [SerializeField] int chugCardsPerGame = 2;
     [SerializeField] int inconvenienceCardsPerGame = 6;
     [SerializeField] int minInconvenienceLength = 5;
     [SerializeField] int maxInconvenienceLength = 10;
 
     [Header("Debug")]
     [SerializeField] int currentTurn;
-    [SerializeField] int inconvenienceCounter = 0;
     [SerializeField] string currentPlayer;
     [SerializeField] int cardsInDeck = 0;
     [SerializeField] int cardsInUsedDeck = 0;
@@ -28,39 +30,39 @@ public class GameController : MonoBehaviour {
     public Text cardTitle;
     public Text cardText;
     public Text cardAnswer;
+    [SerializeField] Text playerName;
+    
     public GameObject clickToContinue;
     public Image cardBackground;
-    string cardAnswerText;
+
     [SerializeField] GameObject answerPanel;
     [SerializeField] Text answerPanelTextField;
+    string cardAnswerText;
     bool answerPanelActive = false;
-    [SerializeField] Canvas canvas;
-    [SerializeField] Text playerName;
-    [SerializeField] int playerIndex = 0;
-    [SerializeField] float musicFadeTime = 3f;
-    [SerializeField] Transform nameListHolder;
-    [SerializeField] GameObject nameListEntry;
-    [SerializeField] GameObject nameButton;
-    [SerializeField] GameObject quitButton;
-    
     bool hasHiddenText = false;
+
+    [SerializeField] Canvas canvas;
+    float musicFadeTime = 3f;
     
     [Header("Decks Slots")]
     [SerializeField] List<int> uniqueCardUsedSlots = new List<int>();
     [SerializeField] List<int> dateCardTurn = new List<int>();
     [SerializeField] List<int> categoryCardTurn = new List<int>();
     [SerializeField] List<int> specialCardTurn = new List<int>();
+    [SerializeField] List<int> chugCardTurn = new List<int>();
     [SerializeField] List<int> inconvenienceCardTurn = new List<int>();
     [SerializeField] List<int> inconvenienceFreedomTurn = new List<int>();
     [SerializeField] List<string> inconvenienceFreedomString = new List<string>();
-        
-    // Player Stuff
+
+    [Header("Player Stuff")]
+    [SerializeField] Transform nameListHolder;
+    [SerializeField] GameObject nameListEntry;
+    int playerIndex = 0;
     public static int numberOfPlayers = 0;
     public static List<string> players = new List<string>();
     bool noNames = false;
     bool skipThisTurn = false;
-    Card dealCard;
-
+    
     [Header("Categories")]
     [SerializeField] Color inconvenienceColor;
     [SerializeField] Color actionColor;
@@ -68,6 +70,7 @@ public class GameController : MonoBehaviour {
     [SerializeField] Color triviaColor;
     [SerializeField] Color specialColor;
     [SerializeField] Color dateColor;
+    [SerializeField] Color chugColor;
     Color backgroundColor;
     public Camera cam;
 
@@ -102,6 +105,7 @@ public class GameController : MonoBehaviour {
         this.GetComponent<DateCards>().AddCardsToDeck();
         this.GetComponent<SpecialCards>().AddCardsToDeck();
         this.GetComponent<InconvenienceCards>().AddCardsToDeck();
+        this.GetComponent<TruthOrChugCards>().AddCardsToDeck();
     }
 
     // Sets up the actual cards and adds them to the deck
@@ -118,6 +122,7 @@ public class GameController : MonoBehaviour {
         SetupUniqueCards(categoryCardsPerGame, categoryCardTurn);
         SetupUniqueCards(specialCardsPerGame, specialCardTurn);
         SetupUniqueCards(inconvenienceCardsPerGame, inconvenienceCardTurn);
+        SetupUniqueCards(chugCardsPerGame, chugCardTurn);
         
         ResetInconveniences();
         ShowPlayerNames();                
@@ -151,7 +156,7 @@ public class GameController : MonoBehaviour {
 
         skipThisTurn = false;
         noNames = false;
-        
+
         if (currentTurn >= maxTurnsPerGame) {
             SceneManager.LoadScene("GameOver");
         } else {
@@ -164,6 +169,8 @@ public class GameController : MonoBehaviour {
                 dealCard = SelectRandomUniqueCard(CardsManager.categoryCards, categoryCardTurn, false, false);
             } else if (specialCardTurn.Contains(currentTurn)) {
                 dealCard = SelectRandomUniqueCard(CardsManager.specialCards, specialCardTurn, true, true);
+            } else if (chugCardTurn.Contains(currentTurn)) {
+                dealCard = SelectRandomUniqueCard(CardsManager.chugCards, chugCardTurn, false, false);
             } else if (inconvenienceCardTurn.Contains(currentTurn)) {
                 dealCard = SelectRandomUniqueCard(CardsManager.inconvenienceCards, inconvenienceCardTurn, false, false);
                 SetupInconvenienceFreedom();
@@ -180,16 +187,13 @@ public class GameController : MonoBehaviour {
         SetUIText(dealCard);
         SetBackgroundColor(dealCard.cardCategory);
         SetupTurnType();
-                
-        // Animate the title
+
         canvas.GetComponent<Animation>().Play("NewSlide");
         
         PlaySound();
         DisplayPlayerName();
         UpdatePlayer();
-    }
-
-    
+    }    
     
     void ResetInconveniences() {
         inconvenienceFreedomString.Clear();
@@ -210,8 +214,10 @@ public class GameController : MonoBehaviour {
         }
 
         if (incCounter == 0) {
+            //string freedomString = currentPlayer;
+                string freedomString = currentPlayer + " " + dealCard.cardAnswer;
             inconvenienceFreedomTurn.Add(cancelHere);
-            inconvenienceFreedomString.Add(currentPlayer);
+            inconvenienceFreedomString.Add(freedomString);
         }
     }
 
@@ -235,8 +241,7 @@ public class GameController : MonoBehaviour {
         if (!skipThisTurn) {
             if (playerIndex >= (GameController.players.Count - 1)) {
                 playerIndex = 0;
-            }
-            else {
+            } else {
                 playerIndex++;
             }
             currentPlayer = GameController.players[playerIndex];
@@ -245,8 +250,7 @@ public class GameController : MonoBehaviour {
         foreach (Transform child in nameListHolder) {
             if (child.gameObject.name == playerName.text) {
                 child.gameObject.GetComponent<Text>().color = Color.white;
-            }
-            else {
+            } else {
                 child.gameObject.GetComponent<Text>().color = Color.black;
             }
         }
@@ -308,11 +312,11 @@ public class GameController : MonoBehaviour {
         return thisCard;
     }
     
-    Card SelectInconvenienceFreedomCard(string thisPlayerName) {
+    Card SelectInconvenienceFreedomCard(string outText) {
         Card thisCard = CardsManager.deckOfCards[0];
         thisCard.cardCategory = "Convenience";
-        string cardTextout = thisPlayerName.ToString()+ " is relieved of all inconveniences.  For now.";
-        thisCard.cardText = cardTextout;
+        //string cardTextout = thisPlayerName.ToString()+ " is relieved of all inconveniences.  For now.";
+        thisCard.cardText = outText;
         thisCard.cardTitle = "No Longer Inconvenienced";
         thisCard.stages = 1;
         skipThisTurn = true;
@@ -348,7 +352,8 @@ public class GameController : MonoBehaviour {
             case "Head to Head"     : SetColors(headToHeadColor); break;
             case "Trivia"           : SetColors(triviaColor); break;
             case "Special"          : SetColors(specialColor); break;
-            case "Date"             : SetColors(dateColor); break;   
+            case "Date"             : SetColors(dateColor); break;
+            case "Truth or Chug"    : SetColors(chugColor); break;
         }
     }  
     
