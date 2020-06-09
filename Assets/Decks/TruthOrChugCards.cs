@@ -8,7 +8,7 @@ public class TruthOrChugCards : MonoBehaviour {
 
     public void AddCardsToDeck() {
 
-        gameController.AddCardToDeck(CardsManager.chugCards, "Truth or Chug", 1, "Truth or Chug", "I don't know what this is supposed to say lol");
+        gameController.AddCardToDeck(CardsManager.chugCards, "Truth or Chug", 1, "Truth or Chug", "Ask somebody in the room any question you want.  They have to answer truthfully or take a nice long chug.");
     }
 
 }
