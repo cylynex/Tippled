@@ -888,8 +888,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.8, y: -1}
-  m_SizeDelta: {x: 722.8, y: 211.1}
+  m_AnchoredPosition: {x: 2.9, y: 1.8}
+  m_SizeDelta: {x: 561.908, y: 211.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &733969828
 MonoBehaviour:
@@ -912,10 +912,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 61ae47a142c204c748b008fef5244fcc, type: 3}
-    m_FontSize: 30
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -2606,6 +2606,7 @@ GameObject:
   - component: {fileID: 1849078264}
   - component: {fileID: 1849078267}
   - component: {fileID: 1849078268}
+  - component: {fileID: 1849078269}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -2631,6 +2632,7 @@ MonoBehaviour:
   categoryCardsPerGame: 3
   specialCardsPerGame: 3
   chugCardsPerGame: 2
+  triviaCardsPerGame: 2
   inconvenienceCardsPerGame: 4
   minInconvenienceLength: 5
   maxInconvenienceLength: 10
@@ -2653,6 +2655,7 @@ MonoBehaviour:
   categoryCardTurn: 
   specialCardTurn: 
   chugCardTurn: 
+  triviaCardTurn: 
   inconvenienceCardTurn: 
   inconvenienceFreedomTurn: 
   inconvenienceFreedomString: []
@@ -2856,6 +2859,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aabfa8b374c389a45b67c383bca165b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameController: {fileID: 1849078260}
+--- !u!114 &1849078269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849078259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 708a76ef515e4d44bacf6c96c6320fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 1849078260}

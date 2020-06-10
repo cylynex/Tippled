@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour {
     [SerializeField] int categoryCardsPerGame = 3;
     [SerializeField] int specialCardsPerGame = 3;
     [SerializeField] int chugCardsPerGame = 2;
+    [SerializeField] int triviaCardsPerGame = 2;
     [SerializeField] int inconvenienceCardsPerGame = 6;
     [SerializeField] int minInconvenienceLength = 5;
     [SerializeField] int maxInconvenienceLength = 10;
@@ -50,6 +51,7 @@ public class GameController : MonoBehaviour {
     [SerializeField] List<int> categoryCardTurn = new List<int>();
     [SerializeField] List<int> specialCardTurn = new List<int>();
     [SerializeField] List<int> chugCardTurn = new List<int>();
+    [SerializeField] List<int> triviaCardTurn = new List<int>();
     [SerializeField] List<int> inconvenienceCardTurn = new List<int>();
     [SerializeField] List<int> inconvenienceFreedomTurn = new List<int>();
     [SerializeField] List<string> inconvenienceFreedomString = new List<string>();
@@ -106,6 +108,7 @@ public class GameController : MonoBehaviour {
         this.GetComponent<SpecialCards>().AddCardsToDeck();
         this.GetComponent<InconvenienceCards>().AddCardsToDeck();
         this.GetComponent<TruthOrChugCards>().AddCardsToDeck();
+        this.GetComponent<TriviaCards>().AddCardsToDeck();
     }
 
     // Sets up the actual cards and adds them to the deck
@@ -123,6 +126,7 @@ public class GameController : MonoBehaviour {
         SetupUniqueCards(specialCardsPerGame, specialCardTurn);
         SetupUniqueCards(inconvenienceCardsPerGame, inconvenienceCardTurn);
         SetupUniqueCards(chugCardsPerGame, chugCardTurn);
+        SetupUniqueCards(triviaCardsPerGame, triviaCardTurn);
         
         ResetInconveniences();
         ShowPlayerNames();                
@@ -171,6 +175,8 @@ public class GameController : MonoBehaviour {
                 dealCard = SelectRandomUniqueCard(CardsManager.specialCards, specialCardTurn, true, true);
             } else if (chugCardTurn.Contains(currentTurn)) {
                 dealCard = SelectRandomUniqueCard(CardsManager.chugCards, chugCardTurn, false, false);
+            } else if (triviaCardTurn.Contains(currentTurn)) {
+                dealCard = SelectRandomUniqueCard(CardsManager.triviaCards, triviaCardTurn, false, false);
             } else if (inconvenienceCardTurn.Contains(currentTurn)) {
                 dealCard = SelectRandomUniqueCard(CardsManager.inconvenienceCards, inconvenienceCardTurn, false, false);
                 SetupInconvenienceFreedom();

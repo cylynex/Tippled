@@ -10,7 +10,7 @@ public class CanvasSafeArea : MonoBehaviour {
     void Awake() {
         Panel = GetComponent<RectTransform>();
         Refresh();
-        print("Safe area: " + Screen.safeArea);
+        //print("Safe area: " + Screen.safeArea);
     }
 
     void Update() {
