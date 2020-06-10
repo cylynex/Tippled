@@ -55,6 +55,7 @@ public class GameController : MonoBehaviour {
     [SerializeField] List<int> inconvenienceCardTurn = new List<int>();
     [SerializeField] List<int> inconvenienceFreedomTurn = new List<int>();
     [SerializeField] List<string> inconvenienceFreedomString = new List<string>();
+    [SerializeField] List<InconvenienceData> inconvenienceData = new List<InconvenienceData>();
 
     [Header("Player Stuff")]
     [SerializeField] Transform nameListHolder;
@@ -215,13 +216,15 @@ public class GameController : MonoBehaviour {
         AddInconvenienceFreedomStandalone(cancelHere);
     }
 
+    // TODO - Cleanup
     void AddInconvenienceFreedomStandalone(int cancelHere) {
-        string textOut = dealCard.cardAnswer;
-        //string freedomString = textOut.Replace("{name}", currentPlayer);
-        string freedomString = dealCard.cardAnswer.Replace("{name}", currentPlayer);
-        //string freedomString = currentPlayer + " " + dealCard.cardAnswer;
+        InconvenienceData incData = new InconvenienceData();
         inconvenienceFreedomTurn.Add(cancelHere);
-        inconvenienceFreedomString.Add(freedomString);
+        
+        incData.playerName = currentPlayer;
+        incData.title = dealCard.customTitle.Replace("{name}", currentPlayer);
+        incData.cardText = dealCard.cardAnswer.Replace("{name}", currentPlayer);
+        inconvenienceData.Add(incData);        
     }
 
     void AddInconvenienceFreedomCondensed(int cancelHere) {
@@ -237,16 +240,15 @@ public class GameController : MonoBehaviour {
             //string freedomString = currentPlayer;
             string freedomString = currentPlayer + " " + dealCard.cardAnswer;
             inconvenienceFreedomTurn.Add(cancelHere);
-            inconvenienceFreedomString.Add(freedomString);
         }
     }
 
     void CheckForInconvenienceDue() {
         for (int i = 0; i < inconvenienceFreedomTurn.Count; i++) {
             if (currentTurn == inconvenienceFreedomTurn[i]) {
-                dealCard = SelectInconvenienceFreedomCard(inconvenienceFreedomString[i]);
+                dealCard = SelectInconvenienceFreedomCard(inconvenienceData[i]);
                 inconvenienceFreedomTurn.RemoveAt(i);
-                inconvenienceFreedomString.RemoveAt(i);
+                inconvenienceData.RemoveAt(i);
             }
         }
     }
@@ -332,24 +334,25 @@ public class GameController : MonoBehaviour {
         return thisCard;
     }
     
-    Card SelectInconvenienceFreedomCard(string outText) {
+    Card SelectInconvenienceFreedomCard(InconvenienceData incData) { 
         Card thisCard = CardsManager.deckOfCards[0];
         thisCard.cardCategory = "Convenience";
         //string cardTextout = thisPlayerName.ToString()+ " is relieved of all inconveniences.  For now.";
-        thisCard.cardText = outText;
-        thisCard.cardTitle = currentPlayer+" is No Longer Inconvenienced";
+        thisCard.cardText = incData.cardText;
+        thisCard.cardTitle = incData.title;
         thisCard.stages = 1;
         skipThisTurn = true;
         return thisCard;
     }    
 
-    public void AddCardToDeck(List<Card> thisDeck, string cat, int stages, string title, string cText, string cText2 = "") {
+    public void AddCardToDeck(List<Card> thisDeck, string cat, int stages, string title, string cText, string cText2 = "", string cText3 = "") {
         Card tempCard = new Card();
         tempCard.cardCategory = cat;
         tempCard.cardTitle = title;
         tempCard.cardText = cText;
         tempCard.stages = stages;
         tempCard.cardAnswer = cText2;
+        tempCard.customTitle = cText3;
         thisDeck.Add(tempCard);
     }
 
