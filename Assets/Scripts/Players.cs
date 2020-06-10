@@ -21,7 +21,12 @@ public class Players : MonoBehaviour {
                 AddPlayer(GameController.players[i], false);
             }
         }
+    }
 
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Return)) {
+            AddNewPlayer();
+        }
     }
 
     public void AddPlayer(string newPlayer, bool isNewPlayer) {
