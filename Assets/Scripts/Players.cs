@@ -10,9 +10,9 @@ public class Players : MonoBehaviour {
     [SerializeField] InputField newPlayerName;
     [SerializeField] GameObject playerNamePrefab;
     [SerializeField] Transform playerNameHolder;
+    [SerializeField] int maxPlayersPerGame = 12;
 
     private void Start() {
-        print(GameController.players.Count);
         int numPlayers = GameController.players.Count;
 
         if (GameController.players.Count > 0) {
@@ -27,7 +27,7 @@ public class Players : MonoBehaviour {
     public void AddPlayer(string newPlayer, bool isNewPlayer) {
 
         // Add to the Game Controller
-        if (newPlayer.Length > 0 && GameController.numberOfPlayers < 20) {
+        if (newPlayer.Length > 0 && GameController.numberOfPlayers < maxPlayersPerGame) {
 
             if (isNewPlayer) {
                 GameController.players.Add(newPlayer);
@@ -46,7 +46,7 @@ public class Players : MonoBehaviour {
         }
         
         // If they try to add > 20 players
-        if (GameController.numberOfPlayers == 20) {
+        if (GameController.numberOfPlayers == maxPlayersPerGame) {
             errorText.text = "Maximum Number of Players Reached";
         } else {
             errorText.text = "";

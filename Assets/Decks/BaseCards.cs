@@ -372,7 +372,7 @@ public class BaseCards : MonoBehaviour {
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Trivia", 3, "Sounds Sandy", "This mixed drink includes vodka, peach schnapps, orange juice and cranberry juice", "Sex on the Beach");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Trivia", 3, "Ba da dadada Tequila", "This mixed drink includes orange juice, grenadine and tequila", "Tequila Sunrise");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Trivia", 3, "ABC....123...", "This shot includes Jim Beam, Jack Daniels and Jose Cuervo", "Three Wise Men");
-        gameController.AddCardToDeck(CardsManager.deckOfCards, "Trivia", 3, "Apocalypse NOW", "This shot includes Jim Beam, Jack Daniels, Jose Cuervo and Johnnie Walker", "Four Horsemen");
+        gameController.AddCardToDeck(CardsManager.deckOfCards, "Trivia", 3, "Straight to the Dome", "This shot includes Jim Beam, Jack Daniels, Jose Cuervo and Johnnie Walker", "Four Horsemen");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Trivia", 3, "Oh Nelly!", "This shot includes Jim Beam, Jack Daniels, Jose Cuervo, Johnnie Walker and Jagermeister", "Jackson 5");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Trivia", 3, "Don't forget your thermos", "This drink includes beer, orange juice and amaretto", "Lunchbox");
 
