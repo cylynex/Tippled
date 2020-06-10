@@ -9,7 +9,6 @@ public class CategoryCards : MonoBehaviour {
     public void AddCardsToDeck() {
         
         gameController.AddCardToDeck(CardsManager.categoryCards, "Action", 1, "Categories!", "Choose a category. Anything. Now go around the room naming things that fit into that category.  First person who can’t drinks.");
-
     }
 
 }

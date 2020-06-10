@@ -211,6 +211,20 @@ public class GameController : MonoBehaviour {
         int cancelHere = currentTurn + cancelAfter;
 
         // Check for existing inconvenience for this player.  If there is one, just replace the turn slot instead of adding a new one.
+        //AddInconvenienceFreedomCondensed(cancelHere);
+        AddInconvenienceFreedomStandalone(cancelHere);
+    }
+
+    void AddInconvenienceFreedomStandalone(int cancelHere) {
+        string textOut = dealCard.cardAnswer;
+        //string freedomString = textOut.Replace("{name}", currentPlayer);
+        string freedomString = dealCard.cardAnswer.Replace("{name}", currentPlayer);
+        //string freedomString = currentPlayer + " " + dealCard.cardAnswer;
+        inconvenienceFreedomTurn.Add(cancelHere);
+        inconvenienceFreedomString.Add(freedomString);
+    }
+
+    void AddInconvenienceFreedomCondensed(int cancelHere) {
         int incCounter = 0;
         for (int x = 0; x < inconvenienceFreedomString.Count; x++) {
             if (inconvenienceFreedomString[x] == currentPlayer) {
@@ -221,7 +235,7 @@ public class GameController : MonoBehaviour {
 
         if (incCounter == 0) {
             //string freedomString = currentPlayer;
-                string freedomString = currentPlayer + " " + dealCard.cardAnswer;
+            string freedomString = currentPlayer + " " + dealCard.cardAnswer;
             inconvenienceFreedomTurn.Add(cancelHere);
             inconvenienceFreedomString.Add(freedomString);
         }
@@ -323,7 +337,7 @@ public class GameController : MonoBehaviour {
         thisCard.cardCategory = "Convenience";
         //string cardTextout = thisPlayerName.ToString()+ " is relieved of all inconveniences.  For now.";
         thisCard.cardText = outText;
-        thisCard.cardTitle = "No Longer Inconvenienced";
+        thisCard.cardTitle = currentPlayer+" is No Longer Inconvenienced";
         thisCard.stages = 1;
         skipThisTurn = true;
         return thisCard;
@@ -393,8 +407,10 @@ public class GameController : MonoBehaviour {
 
     void SetUIText(Card cardData) {
         cardCategory.text = cardData.cardCategory;
-        cardTitle.text = cardData.cardTitle;
-        cardText.text = cardData.cardText;
+        cardTitle.text = cardData.cardTitle.Replace("{name}", currentPlayer);
+        cardText.text = cardData.cardText.Replace("{name}", currentPlayer);
+        //cardTitle.text = cardData.cardTitle;
+        //cardText.text = cardData.cardText;
         cardAnswer.text = " ";
     }
 }
