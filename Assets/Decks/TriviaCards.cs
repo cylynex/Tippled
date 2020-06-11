@@ -7,7 +7,7 @@ public class TriviaCards : MonoBehaviour {
     [SerializeField] GameController gameController;
 
     public void AddCardsToDeck() {
-        
+
         // Trivia
         gameController.AddCardToDeck(CardsManager.triviaCards, "Trivia", 3, "3 to the D", "What console was the first one that you could play 3D games on?  If you can't name this then have a drink for 1993", "Super Nintendo");
         gameController.AddCardToDeck(CardsManager.triviaCards, "Trivia", 3, "Oink Oink", "These game characters have really disliked green pigs since 2009.", "Angry Birds");
@@ -17,7 +17,7 @@ public class TriviaCards : MonoBehaviour {
         gameController.AddCardToDeck(CardsManager.triviaCards, "Trivia", 3, "Sometimes you don't need talent", "Name the HBO series about an NFL Agent starring Dwayne Johnson.  Or drink.", "Ballers");
         gameController.AddCardToDeck(CardsManager.triviaCards, "Trivia", 3, "GAWWDD DAMN!!!", "The Vindicators had a janitor.  What was his name?", "Noob Noob");
         gameController.AddCardToDeck(CardsManager.triviaCards, "Trivia", 3, "The First of Many", "Who killed Kenny the first time?", "Frosty");
-        gameController.AddCardToDeck(CardsManager.triviaCards, "Trivia", 3, "Like a Virgin", "What was Spiderman's secret identity?", "Peter Parker");
+        gameController.AddCardToDeck(CardsManager.triviaCards, "Trivia", 3, "It’s Spidy", "What was Spiderman's secret identity?", "Peter Parker");
         gameController.AddCardToDeck(CardsManager.triviaCards, "Trivia", 3, "Phone Booth", "Superman's secret identity?  Drink if you don't know.", "Clark Kent");
         gameController.AddCardToDeck(CardsManager.triviaCards, "Trivia", 3, "Everyone Guesses", "Which actor was the best Batman?  Everyone has a say in this, pick your poison and then reveal the only true answer.", "There is no right answer.  Everyone drinks in honor of the Other Man in Black");
         gameController.AddCardToDeck(CardsManager.triviaCards, "Trivia", 3, "Nintendo Power", "Name this game: Animals flying starfighters where Peppy continuously asks you to do a barrel roll.  If you know it, pass out a drink.  Otherwise, have one.", "N64 Starfox");

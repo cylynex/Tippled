@@ -8,7 +8,6 @@ public class BaseCards : MonoBehaviour {
 
     public void AddCardsToDeck() {
 
-        // Head to Head
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Head to Head", 1, "Like Mike", "You and an opponent of your choice both jump as high as you can.  The other players vote who loses and they shall drink 5.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Head to Head", 1, "The Slap", "You and an opponent of your choice take turns slapping each others hands, first person to say Uncle needs to sip a few.  Let's say 3.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Head to Head", 1, "Twerky", "The crowd chooses someone for you to twerk off with, winner passes out 5 drinks for their ass skills");
@@ -235,7 +234,7 @@ public class BaseCards : MonoBehaviour {
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Do you even Lift Bro", "Can you bench over 135 lbs?  Let the room take a vote and if you win you pass out two drinks, but if you lose you skull your drink.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Witchcraft", "How many of you in the room have used a ouija board in your life?  For the number of hands up you weirdos get to partake in that many sips.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Where they at thoooo", "Choose the person in the room that has flaked on plans they had most recently.  Then slap em with five sips!!!");
-        gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Sleepy Sleep Sleep", "Raise your hands here if you need your recommended 8 hours of sleep.  If you do, great, but no one cares.  Go ahead and drink your 8 sips");
+        gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "SuperSize Me", "Take a vote.  Do you supersize those meals from Mcdees??  If you don’t go ahead and take a drink because bigger is better.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Burnt Out", "Who here has had a home appliance burn out from your a$$ overusing it?  If you have go ahead and take one drink for mourning");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "You Handy or Nah", "Are you a handyman/handywoman?  Have the room put it to a vote and if it's a yes then you pass out 5.  If it is a no then you can drink 3 for your lack of abilities");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Roses and Balls", "Roses are red, violets are blue, whose balls are the most blue?  Everyone get in on this sh*t and the loser drinks for not putting out - The whole drink!!");

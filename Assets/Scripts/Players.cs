@@ -27,7 +27,6 @@ public class Players : MonoBehaviour {
         }
 
         touchScreenKeyboard = TouchScreenKeyboard.Open(inputText, TouchScreenKeyboardType.Default);
-
     }
 
     void Update() {

@@ -631,6 +631,9 @@ MonoBehaviour:
   - You know you want to keep going.  There's still beer in your hand!
   - Lets cheers to another round shall we?
   - Really?!  Nobody has even puked and you're calling it quits!
+  - All done for now?  We dare you to go another round!
+  - 'If you play again there will be even more laughs we promise.  And of course
+    more drinking too!! '
   endOfGameTextSpot: {fileID: 901575012}
 --- !u!114 &901575015
 MonoBehaviour:
