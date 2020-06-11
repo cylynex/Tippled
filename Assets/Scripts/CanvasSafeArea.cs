@@ -19,7 +19,6 @@ public class CanvasSafeArea : MonoBehaviour {
 
     void Refresh() {
         Rect safeArea = GetSafeArea();
-
         if (safeArea != LastSafeArea)
             ApplySafeArea(safeArea);
     }
@@ -30,7 +29,6 @@ public class CanvasSafeArea : MonoBehaviour {
 
     void ApplySafeArea(Rect r) {
         LastSafeArea = r;
-
         Vector2 anchorMin = r.position;
         Vector2 anchorMax = r.position + r.size;
         anchorMin.x /= Screen.width;
@@ -40,5 +38,4 @@ public class CanvasSafeArea : MonoBehaviour {
         Panel.anchorMin = anchorMin;
         Panel.anchorMax = anchorMax;
     }
-
 }

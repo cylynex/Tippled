@@ -212,11 +212,11 @@ public class GameController : MonoBehaviour {
         int cancelHere = currentTurn + cancelAfter;
 
         // Check for existing inconvenience for this player.  If there is one, just replace the turn slot instead of adding a new one.
-        //AddInconvenienceFreedomCondensed(cancelHere);
-        AddInconvenienceFreedomStandalone(cancelHere);
+        AddInconvenienceFreedomCondensed(cancelHere);
+        //AddInconvenienceFreedomStandalone(cancelHere);
     }
 
-    // TODO - Cleanup
+    // System where every inconvenience has its own release timer regardless of how many the player has
     void AddInconvenienceFreedomStandalone(int cancelHere) {
         InconvenienceData incData = new InconvenienceData();
         inconvenienceFreedomTurn.Add(cancelHere);
@@ -227,18 +227,26 @@ public class GameController : MonoBehaviour {
         inconvenienceData.Add(incData);        
     }
 
+    // System where if you have more than 1 inconvenience, the release time is unified and happens all at once
     void AddInconvenienceFreedomCondensed(int cancelHere) {
+        InconvenienceData incData = new InconvenienceData();
+        
         int incCounter = 0;
-        for (int x = 0; x < inconvenienceFreedomString.Count; x++) {
-            if (inconvenienceFreedomString[x] == currentPlayer) {
+        for (int x = 0; x < inconvenienceData.Count; x++) {
+            if (inconvenienceData[x].playerName == currentPlayer) {
                 incCounter++;
                 inconvenienceFreedomTurn[x] = cancelHere;
+                inconvenienceData[x].title = currentPlayer + " has suffered enough!!";
+                inconvenienceData[x].cardText = currentPlayer + " is relieved of ALL of their inconveniences.  For now.";
             }
         }
 
+        // If they didn't already have an inconvenience
         if (incCounter == 0) {
-            //string freedomString = currentPlayer;
-            string freedomString = currentPlayer + " " + dealCard.cardAnswer;
+            incData.playerName = currentPlayer;
+            incData.title = dealCard.customTitle.Replace("{name}", currentPlayer);
+            incData.cardText = dealCard.cardAnswer.Replace("{name}", currentPlayer);
+            inconvenienceData.Add(incData);
             inconvenienceFreedomTurn.Add(cancelHere);
         }
     }
@@ -289,7 +297,6 @@ public class GameController : MonoBehaviour {
     /************** Card Handling Methods *******************/
 
     void SetupTurnType() {
-        // Alternative displays
         if (dealCard.stages == 1) { StandardCardSetup(); }
         else if (dealCard.stages == 3) { TriviaCardSetup(); }
     }
@@ -337,7 +344,6 @@ public class GameController : MonoBehaviour {
     Card SelectInconvenienceFreedomCard(InconvenienceData incData) { 
         Card thisCard = CardsManager.deckOfCards[0];
         thisCard.cardCategory = "Convenience";
-        //string cardTextout = thisPlayerName.ToString()+ " is relieved of all inconveniences.  For now.";
         thisCard.cardText = incData.cardText;
         thisCard.cardTitle = incData.title;
         thisCard.stages = 1;
@@ -412,8 +418,6 @@ public class GameController : MonoBehaviour {
         cardCategory.text = cardData.cardCategory;
         cardTitle.text = cardData.cardTitle.Replace("{name}", currentPlayer);
         cardText.text = cardData.cardText.Replace("{name}", currentPlayer);
-        //cardTitle.text = cardData.cardTitle;
-        //cardText.text = cardData.cardText;
         cardAnswer.text = " ";
     }
 }

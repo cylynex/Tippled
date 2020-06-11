@@ -6,7 +6,6 @@ public class ClosePanelButton : MonoBehaviour {
 
     public void ClosePanel() {
         GetComponent<Animation>().Play("AnswerPanelSlideOut");
-        print("advance game");
     }
 
 }

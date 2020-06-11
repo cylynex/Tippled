@@ -22,15 +22,10 @@ public class GameButtons : MonoBehaviour {
 
     public void RemovePlayer() {
 
-        print("Remove a Player now");
-        print(GameController.players.Count);
         string deleteMe = GetComponent<Text>().text;
-        print(deleteMe);
         GameController.players.Remove(deleteMe);
         GameController.numberOfPlayers--;
-        print("Should have deleted now");
         print(GameController.players.Count);
-
         Destroy(gameObject);
     }
 
