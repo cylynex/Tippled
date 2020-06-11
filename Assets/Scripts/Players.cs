@@ -12,6 +12,10 @@ public class Players : MonoBehaviour {
     [SerializeField] Transform playerNameHolder;
     [SerializeField] int maxPlayersPerGame = 12;
 
+    // For the touchscreen keyboard
+    private TouchScreenKeyboard touchScreenKeyboard;
+    private string inputText = string.Empty;
+
     private void Start() {
         int numPlayers = GameController.players.Count;
 
@@ -21,12 +25,25 @@ public class Players : MonoBehaviour {
                 AddPlayer(GameController.players[i], false);
             }
         }
+
+        touchScreenKeyboard = TouchScreenKeyboard.Open(inputText, TouchScreenKeyboardType.Default);
+
     }
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.Return)) {
             AddNewPlayer();
         }
+
+        if (touchScreenKeyboard == null)
+            return;
+        inputText = touchScreenKeyboard.text;
+        if (touchScreenKeyboard.done) {
+            AddNewPlayer();
+        }
+
+        //if (touchScreenKeyboard.wasCanceled)
+            //Debug.Log("User canceled input");
     }
 
     public void AddPlayer(string newPlayer, bool isNewPlayer) {
