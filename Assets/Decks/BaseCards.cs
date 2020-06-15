@@ -14,7 +14,6 @@ public class BaseCards : MonoBehaviour {
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Head to Head", 1, "Drop it like Snoop", "You and an opponent of your choice have a rap battle. Pick a 3rd player to beatbox. Loser drinks.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Head to Head", 1, "Air Hendricks", "Have an Air Guitar battle with another player of your choice.  Whoever is voted the loser drinks.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Head to Head", 1, "Dance Off", "Have a dance battle with another player of your choice.  Crowd voted loser drinks!");
-        gameController.AddCardToDeck(CardsManager.deckOfCards, "Head to Head", 1, "Tu Parle Ruske?", "Have a Russian dance off with another player.  The less Red dancer loses and has a drink.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Head to Head", 1, "Bottoms Up", "You and someone else have a chug contest.  Loser, well, drinks more.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Head to Head", 1, "Push it Up", "Pick an opponent to go push up for push up with.  Loser knows what to do.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Head to Head", 1, "Rock Paper Scissors", "Pick an opponent and go for the best of 3.  Loser drinks.");
@@ -111,7 +110,6 @@ public class BaseCards : MonoBehaviour {
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "McBurger King", "McDonald's or Burger King? Put it to a vote, losers drink.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "All Pizza is not Equal", "New York or Chicago style pizza?  Put it to a vote, losers drink.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Go-Gurt", "Make up yogurt flavors.  They can't be real, but must be technically edible.  When someone is stumped or fails, they drink.");
-        gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Would you like.....", "Name pizza toppings till someone gets too ridiculous, and then has to have a drink");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Movies with an A", "Go around the room naming movies that start with the letter A.  When someone can't, they drink.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Movies with a B", "Go around the room naming movies that start with the letter B.  When someone can't, they drink.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Movies with a C", "Go around the room naming movies that start with the letter C.  When someone can't, they drink.");
@@ -193,7 +191,7 @@ public class BaseCards : MonoBehaviour {
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Unlike this game, your heart might go on", "Go around the room naming Leonardo DeCaprio movies.  First person who can't drinks.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Close eyes, point, win", "Go around the room naming Tom Hanks movies.  First person who can't drinks.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Jimmy you know I didn't see that", "Go around the room naming Samuel L. Jackson movies.  First person who can't drinks.");
-        gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Too much makeup != good acting", "Go around the room naming Johnny Depp movies.  First person who can't drinks.");
+        gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Caribbean Pirate", "Go around the room naming Johnny Depp movies.  First person who can't drinks.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "What's that Smell?", "Around the room, who has farted within the last 10 minutes?  Own up to it and take a quick swig");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "We've All Done it....", "If you've texted your ex recently, take a drink.  Have some self restraint.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Who washes clothes every day anyway", "If you've taken the ‘walk of shame' recently, take a drink.");
@@ -242,7 +240,7 @@ public class BaseCards : MonoBehaviour {
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Color B", "Go around the room naming a color that starts with the letter B.  If you can't then your a B so drink three");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Who would do that", "Tell the group your nastiest, nastiest story and whoever gives reaction to it takes a sip.  If it wasn't nasty enough you drink 10!");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Don't Blame Me", "Point out the person in the room that never owns up to anything.  Now that selfish bastard has to own up to drinking 5!!");
-        gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Home?", "Do you own a house? Good for you, drink 3 for no reason.");
+        gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Home?", "Do you own a house? If so, good for you, drink 3 for that mortgage payment.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Broke A$$", "Who here in the room has under $1,000 in their bank account? Now have a drink to soak in your feelings.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "You Nasty", "Around the room if you have gotten shit on your hands recently then take five drinks you nasty bastard.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "How Low Can Ya Go", "Everyone drop it like it's hot and get as low as you can.  Whoever got the lowest gets to pass out 4 drinks");
@@ -269,11 +267,11 @@ public class BaseCards : MonoBehaviour {
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "The Sh!tz", "Tell everyone a time you had to go so bad you couldn't hold it, then enjoy a nice long pull for your embarrassment");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Damn Dating Apps", "Who in the room has ever sat there late at night swiping right over and over again?  Go ahead and drink in your filth.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Bazinga", "You choose who in the room is the most socially awkward and give them 3 drinks to loosen ‘em up a little.");
-        gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Carrots", "Put it to a vote, carrots raw or cooked? Losers drink.");
+        gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "The Carrot Debacle", "Put it to a vote, carrots raw or cooked? Losers drink.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Up Down", "Who in the room believes fishing is relaxing?  Send 2 drinks down these happy go lucky folks throats");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Batman", "Let everyone hear your best Batman voice.  If you nailed it, pass out two drinks.  If you sounded like a penguin take two drinks yourself.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Raunchy", "Around the room choose, ranch on pizza or not?  Losers take a drink.");
-        gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, " Would you rather...", "Would you rather take a dump in the stall next to your boss or use a port-a-potty at a construction site in 100 degrees?  Put it to a vote, losers drink.");
+        gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Would you rather...", "Would you rather take a dump in the stall next to your boss or use a port-a-potty at a construction site in 100 degrees?  Put it to a vote, losers drink.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Which do you Prefer", "Vanilla or Chocolate?  Put the age old question to a vote and reward the winners with two drinks (you're crazy if it is not chocolate)");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "White Trash", "Who in the room seems to have the most white trash appearance?  Put it to a vote, the Hillbilly needs to drink 3.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Would you rather..", "Would you rather give up your phone or your drivers license? Put it to a vote, losers drink.");
@@ -296,7 +294,7 @@ public class BaseCards : MonoBehaviour {
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Sweet home Alabama", "Who in the room is the most country?  Send them a drink.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Apocalyptica", "You get to choose one person in the room to help you get through a zombie apocalypse.  Both of you take a drink for your camaraderie.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 3, "To Be or Not To Be", "Alright Shakespeare, let's hear your best Romeo or Juliet Impression.  Then click for more Instructions", "If you could do an impression, drink 3 for being a damn nerd.  If not pass out 3 to those nerds who probably could");
-        gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "LLC", "Who in the room runs their own company?  Drinks up to you over damn achievers!");
+        gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "LLC", "Who in the room runs their own company?  Drink up to you damn over achievers!");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Heaven's Gates", "Choose someone in the room you know would get turned around at the Pearly Gates. Have them drink 2 for their future peril.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Is Church Fun?", "Around the room who do you think goes to church the most?  The chosen one passes out Seven Heavenly drinks");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Snowball", "Who in the room do you believe is the biggest softy and easily has their feelings hurt?  Give ‘em three drinks and leave ‘em crying");

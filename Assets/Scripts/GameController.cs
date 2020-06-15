@@ -236,8 +236,8 @@ public class GameController : MonoBehaviour {
             if (inconvenienceData[x].playerName == currentPlayer) {
                 incCounter++;
                 inconvenienceFreedomTurn[x] = cancelHere;
-                inconvenienceData[x].title = currentPlayer + " has suffered enough!!";
-                inconvenienceData[x].cardText = currentPlayer + " is relieved of ALL of their inconveniences.  For now.";
+                inconvenienceData[x].title = currentPlayer + " is no longer inconvenienced";
+                inconvenienceData[x].cardText = currentPlayer + " is relieved of ALL inconveniences.  For now.";
             }
         }
 
