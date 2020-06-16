@@ -27,6 +27,12 @@ public class Players : MonoBehaviour {
         }
 
         touchScreenKeyboard = TouchScreenKeyboard.Open(inputText, TouchScreenKeyboardType.Default);
+        FocusInput();
+    }
+
+    void FocusInput() {
+        newPlayerName.Select();
+        newPlayerName.ActivateInputField();
     }
 
     void Update() {
@@ -76,7 +82,10 @@ public class Players : MonoBehaviour {
     
     public void AddNewPlayer() {
         AddPlayer(newPlayerName.text, true);
+        newPlayerName.text = "";
+        inputText = "";
         touchScreenKeyboard = TouchScreenKeyboard.Open(inputText, TouchScreenKeyboardType.Default);
+        FocusInput();
     }
 
 }
