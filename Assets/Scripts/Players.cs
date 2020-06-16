@@ -76,6 +76,7 @@ public class Players : MonoBehaviour {
     
     public void AddNewPlayer() {
         AddPlayer(newPlayerName.text, true);
+        touchScreenKeyboard = TouchScreenKeyboard.Open(inputText, TouchScreenKeyboardType.Default);
     }
 
 }

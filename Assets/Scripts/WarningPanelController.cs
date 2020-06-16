@@ -8,7 +8,6 @@ public class WarningPanelController : MonoBehaviour {
     [SerializeField] GameObject warningPanel;
 
     private void Start() {
-        print("alive");
         if (warningShown == false) {
             // Activate the warning box
             warningPanel.SetActive(true);
