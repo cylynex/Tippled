@@ -20,14 +20,15 @@ public class Players : MonoBehaviour {
         int numPlayers = GameController.players.Count;
 
         if (GameController.players.Count > 0) {
+            print("found current players - distributinh");
             // Put the current players into the display
             for (int i = 0; i < numPlayers; i++) {
-                AddPlayer(GameController.players[i], false);
+                AddExistingPlayer(GameController.players[i]);
             }
         }
 
         touchScreenKeyboard = TouchScreenKeyboard.Open(inputText, TouchScreenKeyboardType.Default);
-        TouchScreenKeyboard.hideInput = true;
+        //TouchScreenKeyboard.hideInput = true;
         FocusInput();
     }
 
@@ -47,16 +48,18 @@ public class Players : MonoBehaviour {
         if (touchScreenKeyboard.done) {
             AddNewPlayer();
         }
+    }
 
-        //if (touchScreenKeyboard.wasCanceled)
-            //Debug.Log("User canceled input");
+    void AddExistingPlayer(string playerName) {
+        print("add existing player");
+        CreatePlayerEntry(playerName);
     }
 
     public void AddPlayer(string newPlayer, bool isNewPlayer) {
-
         // Add to the Game Controller
-        if (newPlayer.Length > 0 && GameController.numberOfPlayers < maxPlayersPerGame) {
-
+        if (newPlayer.Length > 0 && GameController.numberOfPlayers < maxPlayersPerGame && isNewPlayer == true) {
+            
+            print("Its ok to add this NEW player, continue");
             if (isNewPlayer) {
                 GameController.players.Add(newPlayer);
                 GameController.numberOfPlayers++;
@@ -68,17 +71,21 @@ public class Players : MonoBehaviour {
             newPlayerName.text = "";
 
             // Add to the lower UI section
-            GameObject newestPlayer = Instantiate(playerNamePrefab, playerNameHolder.position, Quaternion.identity);
-            newestPlayer.transform.SetParent(playerNameHolder);
-            newestPlayer.GetComponentInChildren<Text>().text = newPlayer;
+            CreatePlayerEntry(newPlayer);
         }
         
-        // If they try to add > 20 players
-        if (GameController.numberOfPlayers == maxPlayersPerGame) {
+        // If they try to add > maxPlayers
+        if (GameController.numberOfPlayers >= maxPlayersPerGame) {
             errorText.text = "Maximum Number of Players Reached";
         } else {
             errorText.text = "";
         }
+    }
+
+    void CreatePlayerEntry(string newPlayer) {
+        GameObject newestPlayer = Instantiate(playerNamePrefab, playerNameHolder.position, Quaternion.identity);
+        newestPlayer.transform.SetParent(playerNameHolder);
+        newestPlayer.GetComponentInChildren<Text>().text = newPlayer;
     }
     
     public void AddNewPlayer() {

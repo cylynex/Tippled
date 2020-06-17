@@ -22,7 +22,7 @@ public class GameButtons : MonoBehaviour {
 
     public void RemovePlayer() {
 
-        string deleteMe = GetComponent<Text>().text;
+        string deleteMe = GetComponentInChildren<Text>().text;
         GameController.players.Remove(deleteMe);
         GameController.numberOfPlayers--;
         print(GameController.players.Count);
