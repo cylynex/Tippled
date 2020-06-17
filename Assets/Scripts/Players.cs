@@ -27,6 +27,7 @@ public class Players : MonoBehaviour {
         }
 
         touchScreenKeyboard = TouchScreenKeyboard.Open(inputText, TouchScreenKeyboardType.Default);
+        TouchScreenKeyboard.hideInput = true;
         FocusInput();
     }
 
@@ -69,7 +70,7 @@ public class Players : MonoBehaviour {
             // Add to the lower UI section
             GameObject newestPlayer = Instantiate(playerNamePrefab, playerNameHolder.position, Quaternion.identity);
             newestPlayer.transform.SetParent(playerNameHolder);
-            newestPlayer.GetComponent<Text>().text = newPlayer;
+            newestPlayer.GetComponentInChildren<Text>().text = newPlayer;
         }
         
         // If they try to add > 20 players

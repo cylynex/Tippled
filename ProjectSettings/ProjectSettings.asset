@@ -169,7 +169,7 @@ PlayerSettings:
     Standalone: com.Company.ProductName
     iPhone: com.3xentertainment.tippled
   buildNumber:
-    iPhone: 4
+    iPhone: 6
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 0
