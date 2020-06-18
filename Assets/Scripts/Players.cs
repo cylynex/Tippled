@@ -27,8 +27,13 @@ public class Players : MonoBehaviour {
             }
         }
 
-        touchScreenKeyboard = TouchScreenKeyboard.Open(inputText, TouchScreenKeyboardType.Default);
+        //touchScreenKeyboard = TouchScreenKeyboard.Open(inputText, TouchScreenKeyboardType.Default);
         //TouchScreenKeyboard.hideInput = true;
+        //FocusInput();
+    }
+
+    public void OpenKeyboard() {
+        touchScreenKeyboard = TouchScreenKeyboard.Open(inputText, TouchScreenKeyboardType.Default);
         FocusInput();
     }
 
@@ -92,8 +97,9 @@ public class Players : MonoBehaviour {
         AddPlayer(newPlayerName.text, true);
         newPlayerName.text = "";
         inputText = "";
-        touchScreenKeyboard = TouchScreenKeyboard.Open(inputText, TouchScreenKeyboardType.Default);
-        FocusInput();
+        //touchScreenKeyboard = TouchScreenKeyboard.Open(inputText, TouchScreenKeyboardType.Default);
+        //FocusInput();
+        
     }
 
 }
