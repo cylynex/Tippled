@@ -11,6 +11,8 @@ public class GameController : MonoBehaviour {
     [Header("Settings")]
     [SerializeField] int maxTurnsPerGame = 50;
     [SerializeField] int maxReshuffle = 210;
+    [SerializeField] int maxInconvenienceReshuffle = 10;
+    [SerializeField] int maxTriviaReshuffle = 9;
     [SerializeField] int dateCardsPerGame = 2;
     [SerializeField] int categoryCardsPerGame = 3;
     [SerializeField] int specialCardsPerGame = 3;
@@ -25,7 +27,11 @@ public class GameController : MonoBehaviour {
     [SerializeField] string currentPlayer;
     [SerializeField] int cardsInDeck = 0;
     [SerializeField] int cardsInUsedDeck = 0;
-    
+    [SerializeField] int cardsInInconvenienceDeck = 0;
+    [SerializeField] int cardsInUsedInconveninceDeck = 0;
+    [SerializeField] int cardsInTriviaDeck = 0;
+    [SerializeField] int cardsInUsedTriviaDeck = 0;
+
     [Header("UI Stuff")]
     public Text cardCategory;
     public Text cardTitle;
@@ -103,13 +109,33 @@ public class GameController : MonoBehaviour {
             }
         }
 
+        // Inconvenience Deck Reshuffles
+        if (CardsManager.usedInconvenienceCards.Count == 0) {
+            this.GetComponent<InconvenienceCards>().AddCardsToDeck();
+        } else if (CardsManager.usedInconvenienceCards.Count > maxInconvenienceReshuffle) {
+            for (int i = 0; i < 5; i++) {
+                CardsManager.inconvenienceCards.Add(CardsManager.usedInconvenienceCards[0]);
+                CardsManager.usedInconvenienceCards.RemoveAt(0);
+            }
+        }
+
+        // Trivia Deck Reshuffles
+        if (CardsManager.usedTriviaCards.Count == 0) {
+            this.GetComponent<TriviaCards>().AddCardsToDeck();
+        } else if (CardsManager.usedTriviaCards.Count > maxTriviaReshuffle) {
+            for (int i = 0; i < 3; i++) {
+                CardsManager.triviaCards.Add(CardsManager.usedTriviaCards[0]);
+                CardsManager.usedTriviaCards.RemoveAt(0);
+            }
+        }
+
         // Add in the special assignment cards.
         this.GetComponent<CategoryCards>().AddCardsToDeck();
         this.GetComponent<DateCards>().AddCardsToDeck();
         this.GetComponent<SpecialCards>().AddCardsToDeck();
-        this.GetComponent<InconvenienceCards>().AddCardsToDeck();
+        //this.GetComponent<InconvenienceCards>().AddCardsToDeck();
         this.GetComponent<TruthOrChugCards>().AddCardsToDeck();
-        this.GetComponent<TriviaCards>().AddCardsToDeck();
+        //this.GetComponent<TriviaCards>().AddCardsToDeck();
     }
 
     // Sets up the actual cards and adds them to the deck
@@ -156,8 +182,13 @@ public class GameController : MonoBehaviour {
             currentTurn++;
         }
 
+        // Debug
         cardsInDeck = CardsManager.deckOfCards.Count;
         cardsInUsedDeck = CardsManager.usedCards.Count;
+        cardsInInconvenienceDeck = CardsManager.inconvenienceCards.Count;
+        cardsInUsedInconveninceDeck = CardsManager.usedInconvenienceCards.Count;
+        cardsInTriviaDeck = CardsManager.triviaCards.Count;
+        cardsInUsedTriviaDeck = CardsManager.usedTriviaCards.Count;
 
         skipThisTurn = false;
         noNames = false;
@@ -177,12 +208,15 @@ public class GameController : MonoBehaviour {
             } else if (chugCardTurn.Contains(currentTurn)) {
                 dealCard = SelectRandomUniqueCard(CardsManager.chugCards, chugCardTurn, false, false);
             } else if (triviaCardTurn.Contains(currentTurn)) {
-                dealCard = SelectRandomUniqueCard(CardsManager.triviaCards, triviaCardTurn, false, false);
+                //dealCard = SelectRandomUniqueCard(CardsManager.triviaCards, triviaCardTurn, false, false);
+                dealCard = SelectCardWithDiscardDeck(CardsManager.triviaCards, CardsManager.usedTriviaCards);
             } else if (inconvenienceCardTurn.Contains(currentTurn)) {
-                dealCard = SelectRandomUniqueCard(CardsManager.inconvenienceCards, inconvenienceCardTurn, false, false);
+                //dealCard = SelectRandomUniqueCard(CardsManager.inconvenienceCards, inconvenienceCardTurn, false, false);
+                dealCard = SelectCardWithDiscardDeck(CardsManager.inconvenienceCards, CardsManager.usedInconvenienceCards);
                 SetupInconvenienceFreedom();
             } else {
-                dealCard = SelectRandomCard();
+                //dealCard = SelectRandomCard();
+                dealCard = SelectCardWithDiscardDeck(CardsManager.deckOfCards, CardsManager.usedCards);
             }
             
             PlayCard();
@@ -329,6 +363,14 @@ public class GameController : MonoBehaviour {
         Card thisCard = CardsManager.deckOfCards[randomCard];
         CardsManager.usedCards.Add(thisCard);
         CardsManager.deckOfCards.RemoveAt(randomCard);
+        return thisCard;
+    } 
+
+    Card SelectCardWithDiscardDeck(List<Card> deckToUse, List<Card> discardDeck) {
+        int randomCard = Random.Range(0, deckToUse.Count);
+        Card thisCard = deckToUse[randomCard];
+        discardDeck.Add(thisCard);
+        deckToUse.RemoveAt(randomCard);
         return thisCard;
     }
 

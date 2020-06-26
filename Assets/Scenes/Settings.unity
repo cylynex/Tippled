@@ -357,8 +357,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Are you f'ing kidding?? what settings?? This is a drinking game son.  Now
-    jerk that bottle and go to work.
+  m_Text: Seriously?  What kind of settings could you possibly adjust!! Get back
+    to the game.
 --- !u!222 &410618822
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -502,7 +502,7 @@ PrefabInstance:
     - target: {fileID: 5176482250422056046, guid: ada6b7f329437cb40bcc199b6fed4c45,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 4.3
+      value: 4.300049
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ada6b7f329437cb40bcc199b6fed4c45, type: 3}
