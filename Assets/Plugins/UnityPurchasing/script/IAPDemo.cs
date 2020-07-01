@@ -77,6 +77,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
         //Dictionary<string, string> google_play_store_product_SKUDetails_json = m_GooglePlayStoreExtensions.GetProductJSONDictionary();
         // Sample code for manually finish a transaction (consume a product on GooglePlay store)
         //m_GooglePlayStoreExtensions.FinishAdditionalTransaction(productId, transactionId);
+        m_GooglePlayStoreExtensions.SetLogLevel(0); // 0 == debug, info, warning, error. 1 == warning, error only.
 
         InitUI(controller.products.all);
 
@@ -292,6 +293,11 @@ public class IAPDemo : MonoBehaviour, IStoreListener
 			UpdateProductPendingUI (p, remaining);
 		}
 
+        if (m_IsGooglePlayStoreSelected)
+        {
+            Debug.Log("Is " + p.definition.id + " currently owned, according to the Google Play store? "
+                      + m_GooglePlayStoreExtensions.IsOwned(p));
+        }
         Debug.Log("Confirming purchase of " + p.definition.id);
         m_Controller.ConfirmPendingPurchase(p);
         m_PendingProducts.Remove(p.definition.id);

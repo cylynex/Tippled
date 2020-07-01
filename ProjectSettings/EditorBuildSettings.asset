@@ -13,7 +13,7 @@ EditorBuildSettings:
     guid: 6e32254a271f64fa5b5a9847ce0cf320
   - enabled: 1
     path: Assets/Scenes/Menu.unity
-    guid: 4a4fe3d6eea23e3448e896c6d69aee84
+    guid: bd0e548b9f8c8874c8c759dd3b01ddae
   - enabled: 1
     path: Assets/Scenes/SetupPlayers.unity
     guid: 5920e4a414aaa2f448af890c853847d9
@@ -22,7 +22,7 @@ EditorBuildSettings:
     guid: f1a6fe0a458d9e44eb20984b6335c771
   - enabled: 1
     path: Assets/Scenes/Game.unity
-    guid: f87ed1a0b8d68f742baa2b8bc9c8ed30
+    guid: b13767259cf04ac4bb0655b827dbad90
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 869572e7d5dd21c4f9761bd746bee4ba

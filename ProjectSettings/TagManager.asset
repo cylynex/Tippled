@@ -9,6 +9,7 @@ TagManager:
   - LIstName
   - ErrorHandler
   - NameList
+  - PlaySpace
   layers:
   - Default
   - TransparentFX

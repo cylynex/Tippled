@@ -11,4 +11,5 @@ public class Card {
     public string cardColor;
     public int stages;
     public string cardAnswer;
+    public string customTitle; // Only used for inconvenience freedom currently
 }

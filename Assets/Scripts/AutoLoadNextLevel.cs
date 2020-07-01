@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoLoadNextLevel : MonoBehaviour
-{
+public class AutoLoadNextLevel : MonoBehaviour {
 
 	public float autoLoadNextLevelAfter;
 
-	// Use this for initialization
-	void Start()
-	{
+	void Start() { 
 		Invoke("LoadNextLevel", autoLoadNextLevelAfter);
 	}
 
