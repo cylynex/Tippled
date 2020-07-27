@@ -137,7 +137,6 @@ public class GameController : MonoBehaviour {
         this.GetComponent<TruthOrChugCards>().AddCardsToDeck();
         
         // DLC
-        print("Attempting to add DLC now");
         GetComponent<DLCManager>().Import();
 
     }
