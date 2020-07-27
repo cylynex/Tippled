@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -133,9 +134,12 @@ public class GameController : MonoBehaviour {
         this.GetComponent<CategoryCards>().AddCardsToDeck();
         this.GetComponent<DateCards>().AddCardsToDeck();
         this.GetComponent<SpecialCards>().AddCardsToDeck();
-        //this.GetComponent<InconvenienceCards>().AddCardsToDeck();
         this.GetComponent<TruthOrChugCards>().AddCardsToDeck();
-        //this.GetComponent<TriviaCards>().AddCardsToDeck();
+        
+        // DLC
+        print("Attempting to add DLC now");
+        GetComponent<DLCManager>().Import();
+
     }
 
     // Sets up the actual cards and adds them to the deck
@@ -402,6 +406,10 @@ public class GameController : MonoBehaviour {
         tempCard.cardAnswer = cText2;
         tempCard.customTitle = cText3;
         thisDeck.Add(tempCard);
+    }
+
+    public void AddDLCCardToDeck(List<Card> thisDeck, Card newCard) {
+        thisDeck.Add(newCard);
     }
 
     void RevealAnswer() {

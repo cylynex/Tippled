@@ -2600,6 +2600,7 @@ GameObject:
   - component: {fileID: 1849078261}
   - component: {fileID: 1849078260}
   - component: {fileID: 1849078262}
+  - component: {fileID: 1849078270}
   - component: {fileID: 1849078263}
   - component: {fileID: 1849078265}
   - component: {fileID: 1849078266}
@@ -2628,6 +2629,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTurnsPerGame: 50
   maxReshuffle: 210
+  maxInconvenienceReshuffle: 10
+  maxTriviaReshuffle: 9
   dateCardsPerGame: 2
   categoryCardsPerGame: 3
   specialCardsPerGame: 3
@@ -2640,6 +2643,10 @@ MonoBehaviour:
   currentPlayer: 
   cardsInDeck: 0
   cardsInUsedDeck: 0
+  cardsInInconvenienceDeck: 0
+  cardsInUsedInconveninceDeck: 0
+  cardsInTriviaDeck: 0
+  cardsInUsedTriviaDeck: 0
   cardCategory: {fileID: 833982950}
   cardTitle: {fileID: 1765582706}
   cardText: {fileID: 1262257683}
@@ -2874,6 +2881,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 708a76ef515e4d44bacf6c96c6320fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameController: {fileID: 1849078260}
+--- !u!114 &1849078270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849078259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f71cc8b9e0a197e4e82cdcca624a16e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardData: {fileID: 0}
   gameController: {fileID: 1849078260}
 --- !u!1 &1922005100
 GameObject:

@@ -11,12 +11,7 @@ public class ImportCards : MonoBehaviour {
     string[] linesFromFile;
 
     private void Start() {
-        print("ok lets read some god damned cards");
-
-        foreach (string file in System.IO.Directory.GetFiles("Resources/BaseDecks/")) {
-            print("reading files now");
-        }
-
+        
         cardData = Resources.Load("BaseDecks/ActionCardDeck") as TextAsset;
         linesFromFile = cardData.text.Split("\n"[0]);
         

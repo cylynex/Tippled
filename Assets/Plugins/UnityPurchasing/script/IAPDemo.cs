@@ -10,6 +10,7 @@
 //#define USE_PAYOUTS // Enables use of PayoutDefinitions to specify what the player should receive when a product is purchased
 //#define INTERCEPT_PROMOTIONAL_PURCHASES // Enables intercepting promotional purchases that come directly from the Apple App Store
 //#define SUBSCRIPTION_MANAGER //Enables subscription product manager for AppleStore and GooglePlay store
+//#define AGGRESSIVE_INTERRUPT_RECOVERY_GOOGLEPLAY // Enables also using AIDL getPurchaseHistory to recover from purchase interruptions, assuming developer is deduplicating to protect against "duplicate on cancel" flow
 
 using System;
 using System.Collections;
@@ -359,6 +360,14 @@ public class IAPDemo : MonoBehaviour, IStoreListener
 
         m_IsGooglePlayStoreSelected =
             Application.platform == RuntimePlatform.Android && module.appStore == AppStore.GooglePlay;
+
+#if AGGRESSIVE_INTERRUPT_RECOVERY_GOOGLEPLAY
+        // For GooglePlay, if we have access to a backend server to deduplicate purchases, query purchase history
+        // when attempting to recover from a network-interruption encountered during purchasing. Strongly recommend
+        // deduplicating transactions across app reinstallations because this relies upon the on-device, deletable
+        // TransactionLog database.
+        builder.Configure<IGooglePlayConfiguration>().aggressivelyRecoverLostPurchases = true;
+#endif
 
         // CloudMoolah Configuration setings
         // All games must set the configuration. the configuration need to apply on the CloudMoolah Portal.

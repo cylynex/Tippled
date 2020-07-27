@@ -329,6 +329,12 @@ public class BaseCards : MonoBehaviour {
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Twin Cannons", "Grab a second drink.  Double fist till one of them is dry.  Start with a sip now.");
         gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Moose", "Ever seen a dog slurp their drink out of a bowl?  Get to it, grab a bowl, and everyone pour a little of their drink in and you suck it all up to the last drop. Yummmm!!");
 
+        // Quarantine
+        //gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Lockdown", "Who in the room had the longest stay at home streak during the COVID - 19 Pandemic? Whoever stayed at home the longest passes out 3 drinks.");
+        //gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Kinky", "Around the room what is the most unique place you have done ‘it’ during quarantine?  Least interesting location have a drink.  If you haven’t gotten any finish your drink.");
+        //gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "Couch Potato", "Who playing has been the laziest during quarantine and really let themselves go?  They get the honor of having a drink.");
+        //gameController.AddCardToDeck(CardsManager.deckOfCards, "Action", 1, "The Covid P90", "Who's been the hardest worker during the COVID quarantine, hitting that home gym or doing DIY projects?  They hand out 2 drinks.");
+               
         // Pioneer 8 Specials (beta only)
         //gameController.AddCardToDeck(CardsManager.deckOfCards, "Pioneer", 1, "The Jaime Clause", "If your drink is less than half full, finish it and get a fresh one.");
         //gameController.AddCardToDeck(CardsManager.deckOfCards, "Pioneer", 1, "The Rodney Clause", "Talk loudly.  Call people bastards.  Try to spill your drink a bit.  Oh yeah, and have a drink.");

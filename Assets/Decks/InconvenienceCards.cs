@@ -31,7 +31,12 @@ public class InconvenienceCards : MonoBehaviour {
         gameController.AddCardToDeck(CardsManager.inconvenienceCards, "Inconvenience", 1, "Squirrel!!!", "Make a squirrel face, you know, stick your top teeth out.  Anytime you forget, you drink.", "What’s wrong with your face?  You look like a squirrel.  Cut that sh*t out.", "{name} is no longer Inconvenienced");
         gameController.AddCardToDeck(CardsManager.inconvenienceCards, "Inconvenience", 1, "Keep It Going", "Start Walking around the room.  Never stop moving.  Anytime you do, have a drink.", "Stop moving around and sit down.", "{name} is no longer Inconvenienced");
         gameController.AddCardToDeck(CardsManager.inconvenienceCards, "Inconvenience", 1, "Pffffffft", "You can only speak in fart noises.  Anything you say that isn't a squeaker, a trumpet, or a silent but deadly means a drink.", "Ok, you can stop talking in fart noises stinky.", "{name} is no longer Inconvenienced");
-        gameController.AddCardToDeck(CardsManager.inconvenienceCards, "Inconvenience", 1, "Born to Runner Up", "Jog in place.  If your feet stop moving, your hands better lift that drink up and take a swallow.", "Enough with the running in place already.If you kept it going the whole time congrats.Hand out a 5 second chug to the room.", "{name} is no longer Inconvenienced");
+        gameController.AddCardToDeck(CardsManager.inconvenienceCards, "Inconvenience", 1, "Born to Runner Up", "Jog in place.  If your feet stop moving, your hands better lift that drink up and take a swallow.", "Enough with the running in place already. If you kept it going the whole time congrats.  Hand out a 5 second chug to the room.", "{name} is no longer Inconvenienced");
         gameController.AddCardToDeck(CardsManager.inconvenienceCards, "Inconvenience", 1, "Unhearable", "The crowd chooses a word that you cannot hear.  Everytime someone says it, you must drink.", "Wow that hurt.  I bet everyone said the word that you can’t hear.  Sorry about that.", "{name} is no longer Inconvenienced");
+
+        // Quarantine
+        //gameController.AddCardToDeck(CardsManager.inconvenienceCards, "Inconvenience", 1, "Social Distancing", "You must be at least 6 feet away from everyone else.  Since you are probably playing this virtually, stand 6 feet away from your camera.", "Ok, you can go back to the way things were before the pandemic.", "{name} is no longer Inconvenienced");
+
+
     }
 }

@@ -27,7 +27,12 @@ public class SpecialCards : MonoBehaviour {
         gameController.AddCardToDeck(CardsManager.specialCards, "Special", 1, "Drink!", "Everybody take a drink!");
         gameController.AddCardToDeck(CardsManager.specialCards, "Special", 1, "Drink!", "Everybody take a drink!");
         gameController.AddCardToDeck(CardsManager.specialCards, "Special", 1, "Drink!", "Everybody take a drink!");
-        gameController.AddCardToDeck(CardsManager.specialCards, "Special", 1, "Take a sip", "… Yeah we thought you all needed a sip, 1 drink this time");
+        gameController.AddCardToDeck(CardsManager.specialCards, "Special", 1, "Take a sip", "...Yeah we thought you all needed a sip, 1 drink this time");
+
+        // Quarantine
+        //gameController.AddCardToDeck(CardsManager.specialCards, "Special", 1, "There's always 2021", "Everyone have a sip to celebrate how much covid-19 f*cked up your plans for 2020.");
+        //gameController.AddCardToDeck(CardsManager.specialCards, "Special", 1, "Check that Recycle Bin", "Who drank more than normal during the stay at home orders??  Great, we knew everyone would raise their hands for that one.  Everyone drinks!");
+
 
     }
 

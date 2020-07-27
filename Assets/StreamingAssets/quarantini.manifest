@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 799051341
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 04e232bc0cc86219f23a3fe6b5accb3d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/temp/quarantini.csv
+Dependencies: []

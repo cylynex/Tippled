@@ -1,0 +1,13 @@
+ManifestFileVersion: 0
+CRC: 4211421435
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: testdlc.emptyholder
+      Dependencies: {}
+    Info_1:
+      Name: sampledlc
+      Dependencies: {}
+    Info_2:
+      Name: quarantini
+      Dependencies: {}
